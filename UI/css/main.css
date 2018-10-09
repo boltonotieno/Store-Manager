@@ -16,7 +16,32 @@ html, body{
 .side-nav li{
     padding-top: 10px;
     margin-top: 15px;
-    margin-right: 100%;
+}
+
+
+.dropdown-content{
+    padding-left: 50px;
+    background-color: #262626;
+    display: none;
+    
+}
+.dropdown-content a{
+    padding-top: 5px;
+}
+.dropdown:hover .dropdown-content{
+    display: block;
+}
+i{
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    margin-left: 50px;
+}
+
+.down-arrow{
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
 }
 
 hr.active{
@@ -26,12 +51,15 @@ hr.active{
 .side-nav li a{
     text-decoration: none;
     color: #FFFFFF;
+    display: block;
 }
 
 .side-nav li a:hover{
     text-decoration: none;
     color: #4471B7;
 }
+
+
 
 .top-nav{
     overflow: auto;
