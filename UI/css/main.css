@@ -18,13 +18,13 @@ html, body{
     margin-top: 15px;
 }
 
-
 .dropdown-content{
     padding-left: 50px;
     background-color: #262626;
     display: none;
     
 }
+
 .dropdown-content a{
     padding-top: 5px;
 }
@@ -59,14 +59,13 @@ hr.active{
     color: #4471B7;
 }
 
-
-
 .top-nav{
     overflow: auto;
     background-color: #4471B7;
     position: fixed;
     width: 100%;
 }
+
 .top-nav li{
     display: inline-block;
     list-style-type: none;
@@ -138,5 +137,3 @@ hr.active{
     background-color: #e0f2f1;
 
 }
-
-
