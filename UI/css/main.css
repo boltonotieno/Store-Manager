@@ -1,0 +1,61 @@
+html, body{
+    margin:0;
+    width: 100%;
+    padding: 0;
+    background-color: #E7EBF1;
+}
+.side-nav ul{
+    margin: 0;
+    height: 100%;
+    width: 10%;
+    background-color: #242B32;
+    list-style-type: none;
+    position: fixed;
+}
+.side-nav li{
+    margin-top: 15px;
+    margin-right: 100%;
+}
+
+
+hr.active{
+    border: 2px solid #4471B7;    
+}
+
+.side-nav li a{
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.side-nav li a:hover{
+    text-decoration: none;
+    color: #4471B7;
+}
+
+.top-nav{
+    overflow: auto;
+    background-color: #4471B7;
+    position: fixed;
+    width: 100%;
+}
+.top-nav li{
+    display: inline-block;
+    list-style-type: none;
+}
+
+.left{
+    width: 10%;
+    float: right;
+}
+.left li{
+    color: #FFFFFF;
+    font-size: 25px;
+    font-family:  "Lucida Console", Monaco, monospace;
+    text-align: center;
+    padding: 0 0 5px 0;
+    letter-spacing: 3px;
+    
+}
+.right{
+    width: 90%;
+}
