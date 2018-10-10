@@ -147,7 +147,7 @@
                 <td>20</td>
                 <td>
                     <div class="modify-btn">
-                    <button class="edit-btn">modify</button>
+                    <button id="edit-btn" class="edit-btn">modify</button>
                     <button class="delete-btn">delete</button>
                     </div>
                 </td>
@@ -263,6 +263,61 @@
         </table>
         </div>
 
+            <!-- Edit Modal -->
+            <div id="editModal" class="editmodal">
+                <!-- Edit Modal content -->
+                <div class="editmodal-content">
+                    <span class="close">&times;</span>
+                    <form action="">
+                        
+                        <div class="left-row">
+                        <div class="row">
+                            <div class="left">
+                            <label for="pname">Product Name</label>
+                            </div>
+                            <div class="right">
+                            <input type="text" name="pname" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div class="left">
+                                <label for="price">Price  <cite>  (ksh)</cite></label>
+                                </div>
+                                <div class="right">
+                                <input type="text" name="price"  required>
+                                </div>
+                        </div>
+                        </div>
+            
+                        <div class="right-row">
+                        <div class="row">
+                                <div class="left">
+                                <label for="quantity">Quantity</label>
+                                </div>
+                                <div class="right">
+                                <input type="text" name="quantity" required>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="left">
+                                <label for="quantity">Category</label>
+                                </div>
+                                <div class="right">
+                              <select>
+                                    <option value="0">Select Category:</option>
+                                    <option value="1">Beer</option>
+                                    <option value="2">Spirit</option>
+                                    <option value="3">Wine</option>
+                                </select>
+                                </div>
+                        </div>
+                        </div>
+                        <button class="edit-btn" type="submit">Save</button>
+                        <button class="cancel-btn" type="submit">cancel</button>
+                    </form>
+                </div>
+            </div>
+        
     </div>
         
 <script src="js/main.js"></script>
