@@ -324,3 +324,30 @@ i{
 .editmodal-content select{
     background-color: aliceblue;
 }
+.editmodal-content .edit-btn, .cancel-btn{
+    border-radius: 5px;
+    width: 80px;
+    padding: 5px;
+    margin-top: 20px;
+    margin-right: 20px;
+    opacity: 0.7;
+}
+.editmodal-content .edit-btn:hover, .cancel-btn:hover{
+    opacity: 0.9;
+}
+
+.editmodal-content .edit-btn{
+    background-color: blue;
+}
+.editmodal-content .cancel-btn{
+    background-color: red;
+}
+.editmodal-content legend{
+    color: #4471B7;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    width: 100%;
+    padding: 10px;
+    font-weight: bolder;
+}
