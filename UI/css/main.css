@@ -43,9 +43,9 @@ i{
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
 }
-
-hr.active{
-    border: 3px solid #4471B7;    
+ 
+.side-nav li a.active{
+    color: #4471B7;
 }
 
 .side-nav li a{
@@ -88,11 +88,16 @@ hr.active{
     width: 90%;
 }
 
+.section{
+    width: 100%;
+}
+
 .dash-container{
     padding-top: 30px;
     margin-left: 15%;
     width: 100%; 
     height: 100%;  
+    margin-bottom: 10%;
 }
 
 .title{
