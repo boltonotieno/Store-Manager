@@ -18,9 +18,7 @@ function showContainer(evt, sectionID) {
     }
 
     document.getElementById(sectionID).style.display = "block";
-    evt.currentTarget.className += " active";
-
-    
+    evt.currentTarget.className += " active";  
 }
  function clickFunction() {
      // Get the element with id="default" and click on it

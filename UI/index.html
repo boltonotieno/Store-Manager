@@ -73,13 +73,62 @@
                     <p>Total Admins</p>
                     <a>More info..</a>
             </div>
-    
     </div>
  
-        
     <div id="product" class="dash-container">
+        <div class="title">
+            <h3>Products</h3>
+        </div>
 
-    </div> 
+        <!-- Product add form -->
+        <div class="product-container">
+        <form action="">
+            <div class="left-row">
+            <div class="row">
+                <div class="left">
+                <label for="pname">Product Name</label>
+                </div>
+                <div class="right">
+                <input type="text" name="pname" placeholder="Enter Product name.." required>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="left">
+                    <label for="price">Price  <cite>  (ksh)</cite></label>
+                    </div>
+                    <div class="right">
+                    <input type="text" name="price" placeholder="Enter price.." required>
+                    </div>
+            </div>
+            </div>
+
+            <div class="right-row">
+            <div class="row">
+                    <div class="left">
+                    <label for="quantity">Quantity</label>
+                    </div>
+                    <div class="right">
+                    <input type="text" name="quantity" placeholder="Enter quantity.." required>
+                    </div>
+            </div>
+            <div class="row">
+                    <div class="left">
+                    <label for="quantity">Category</label>
+                    </div>
+                    <div class="right">
+                  <select>
+                        <option value="0">Select Category:</option>
+                        <option value="1">Audi</option>
+                        <option value="2">BMW</option>
+                        <option value="3">Citroen</option>
+                    </select>
+                    </div>
+            </div>
+            </div>
+            <button class="add-btn" type="submit">Add</button>
+            <button class="cancel-btn" type="submit">cancel</button>
+        </form>
+        </div>
         
 <script src="js/main.js"></script>
 </body>
