@@ -240,6 +240,27 @@ i{
     color: white;
 }
 
+/* modify buttons for products css */
+.modify-btn{
+    text-align: center;
+}
+.modify-btn .edit-btn{
+    float: left;
+    background-color: #4471B7;
+    opacity: 0.7;
+    border-radius: 10px
+}
+.modify-btn .delete-btn{
+    margin-left: 10px;
+    float: left;
+    background-color: red;
+    opacity: 0.5;
+    border-radius: 10px;
+}
+
+.modify-btn .edit-btn:hover, .delete-btn:hover{
+    opacity: 0.9;
+}
 
 
 
