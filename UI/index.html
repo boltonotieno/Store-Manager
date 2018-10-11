@@ -373,7 +373,7 @@
                         <td>100</td>
                         <td>
                             <div class="sales-modify-btn">
-                            <button id="sales-edit" class="sales-edit">view</button>
+                            <a onclick="showContainer(event, 'edit-sales')" ><button>view</button></a>
                             <button class="sales-delete">delete</button>
                             </div>
                         </td>
@@ -386,7 +386,7 @@
                         <td>1000</td>
                         <td>
                             <div class="-sales-modify-btn">
-                                <button id="sales-edit" class="sales-edit">view</button>
+                                <a onclick="showContainer(event, 'edit-sales')" ><button>view</button></a>
                                 <button class="sales-delete">delete</button>
                                 </div>
                             </td>
@@ -399,14 +399,22 @@
                         <td>500</td>
                         <td>
                             <div class="sales-modify-btn">
-                            <button id="edit-btn" class="edit-btn">view</button>
+                            <a onclick="showContainer(event, 'edit-sales')" ><button>view</button></a>
                             <button class="delete-btn">delete</button>
                             </div>
                         </td>
                     </tr>
                 </table>
                 </div>
-    
+
+    </div>
+
+    <!-- Edit sales page------------------------------------------------------------------- -->
+
+    <div id="edit-sales" class="dash-container">
+        <div class="title">
+            <h3>Sales: <span> edit</span></h3>
+        </div>
     </div>
 
 
