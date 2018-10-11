@@ -124,9 +124,9 @@
                     <div class="right">
                   <select>
                         <option value="0">Select Category:</option>
-                        <option value="1">Audi</option>
-                        <option value="2">BMW</option>
-                        <option value="3">Citroen</option>
+                        <option value="1">Beer</option>
+                        <option value="2">Wine</option>
+                        <option value="3">Vodka</option>
                     </select>
                     </div>
             </div>
@@ -352,11 +352,11 @@
 
     <div id="sales" class="dash-container">
         <div class="title">
-            <h3>Sales</h3>
+            <h3>Sales: <span> view</span></h3>
         </div>
 
         <div class="sales-container">
-                <table id="products">
+                <table id="sales">
                     <tr>
                         <th>Sales ID</th>
                         <th>Attendant</th>
@@ -400,7 +400,7 @@
                         <td>
                             <div class="sales-modify-btn">
                             <a onclick="showContainer(event, 'edit-sales')" ><button>view</button></a>
-                            <button class="delete-btn">delete</button>
+                            <button class="-sales-delete">delete</button>
                             </div>
                         </td>
                     </tr>
@@ -415,6 +415,88 @@
         <div class="title">
             <h3>Sales: <span> edit</span></h3>
         </div>
+
+        <div class="sales-container">
+                <table id="sales">
+                    <tr>
+                        <th>Product</th>
+                        <th>Quanity</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>Pilsner</td>
+                        <td>2</td>
+                        <td>400</td>
+                        <td>
+                            <div class="sales-modify-btn">
+                            <button class="sales-delete">delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>JohnyWalker</td>
+                        <td>2</td>
+                        <td>400</td>
+                        <td>
+                            <div class="-sales-modify-btn">
+                                <button class="sales-delete">delete</button>
+                                </div>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+        
+        <div class="sales-container">
+        <form action="">
+            <div class="row">
+                <div class="left">
+                <label for="saleid">Sales ID</label>
+                </div>
+                <div class="right">
+                <input type="text" name="saleid" placeholder="" readonly>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="left">
+                    <label for="totalprice">Total Price  <cite>  (ksh)</cite></label>
+                    </div>
+                    <div class="right">
+                    <input type="text" name="totalprice" placeholder="" readonly>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="left">
+                <label for="date">Date:</label>
+                </div>
+                <div class="right">
+                <input type="datetime-local" name="date" placeholder="" readonly>
+                </div>
+            </div>
+            <br>
+
+            <div class="product-form">
+
+                <label for="product"><b>Product</label>
+                <input type="text" placeholder="" name="quantity" readonly>
+
+                <label for="quantity"><b>Quantity</label>
+                <input type="text" placeholder="" name="quantity" required>
+                
+                <label for="rate"><b>Rate</label>
+                <input type="text" placeholder="" name="rate" readonly>
+            
+                <label for="amount"><b>Amount</label>
+                <input type="text" placeholder="" name="amount" readonly>
+
+            </div>
+
+            <button class="add-btn" type="submit">Save</button>
+            <button onclick="showContainer(event, 'sales')" class="cancel-btn" type="submit">cancel</button>
+        </form>
+
+        </div>
+
     </div>
 
 
