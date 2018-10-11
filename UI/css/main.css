@@ -457,7 +457,14 @@ i{
     width: 130px;
     border: 2px solid #ccc;
     border-radius: 4px;
-    font-size: 10px;
-    background-color: whitesmoke;
+    font-size: 14px;
+    box-sizing: border-box;
+    padding: 12px 5px 12px 5px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+.search-input input[type=text]:focus{
+    width: 100%;
 }
 
