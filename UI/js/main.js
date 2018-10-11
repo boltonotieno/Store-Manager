@@ -3,7 +3,7 @@ document.getElementById("default").click()
 
 function showContainer(evt, sectionID) {
     // Declare all variables
-    var i, dashboardcontainer, tablink;
+    var i, dashboardcontainer, tablinks;
 
     // Get all elements with class="dashboardcontainer" and hide them
     dashboardcontainer = document.getElementsByClassName("dash-container");
@@ -20,6 +20,7 @@ function showContainer(evt, sectionID) {
     document.getElementById(sectionID).style.display = "block";
     evt.currentTarget.className += " active";  
 }
+
  function clickFunction() {
      // Get the element with id="default" and click on it
      document.getElementById("default").click();

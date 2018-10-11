@@ -40,7 +40,7 @@
         <hr>
         <br>
         <br>
-        <li><a href="">Logout</a></li>
+        <li><a href="login.html">Logout</a></li>
         <hr>
     </ul>
     </div>
@@ -345,17 +345,71 @@
             </div>
         
     </div>
-
+<!-- check div later    -->
+</div> 
+    
     <!-- Sales page------------------------------------------------------------------------------- -->
 
-    <div id="sales" class="dash-container" >
-            <div class="title">
-                <h3>Dashbaord</h3>
-            </div>
-            
+    <div id="sales" class="dash-container">
+        <div class="title">
+            <h3>Sales</h3>
+        </div>
 
+        <div class="sales-container">
+                <table id="products">
+                    <tr>
+                        <th>Sales ID</th>
+                        <th>Attendant</th>
+                        <th>Date Time</th>
+                        <th>Total Products</th>
+                        <th>Total Amount</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>John Doe</td>
+                        <td>1-04-2018 15:30</td>
+                        <td>2</td>
+                        <td>100</td>
+                        <td>
+                            <div class="sales-modify-btn">
+                            <button id="sales-edit" class="sales-edit">view</button>
+                            <button class="sales-delete">delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jane Doe</td>
+                        <td>1-04-2018 15:30</td>
+                        <td>2</td>
+                        <td>1000</td>
+                        <td>
+                            <div class="-sales-modify-btn">
+                                <button id="sales-edit" class="sales-edit">view</button>
+                                <button class="sales-delete">delete</button>
+                                </div>
+                            </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>John Doe</td>
+                        <td>1-04-2018 15:30</td>
+                        <td>5</td>
+                        <td>500</td>
+                        <td>
+                            <div class="sales-modify-btn">
+                            <button id="edit-btn" class="edit-btn">view</button>
+                            <button class="delete-btn">delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+    
     </div>
-        
+
+
 <script src="js/main.js"></script>
 </body>
 </html>
