@@ -23,10 +23,10 @@
         <li><a id="default" class="tablinks" onclick="showContainer(event, 'dashboard')">Dashboard</a>
         </li>
         <hr>
-        <li class="dropdown"><a href="">Attendant
+        <li class="dropdown"><a>Attendant
         <i class="down-arrow"></i></a>
         <div class="dropdown-content">
-                <a href="#">add</a>
+                <a onclick="showContainer(event, 'add-attendant')">add</a>
                 <a href="#">view</a>
 
         </div>
@@ -501,6 +501,49 @@
 
         </div>
 
+    </div>
+
+    <!-- create attendant account page------------------------------------------------------------ -->
+
+    <div id="add-attendant" class="dash-container">
+        <div class="title">
+            <h3>Attendant: <span> add</span></h3>
+        </div>
+        
+        <div class="attendant-container">
+
+            <!-- Attendant add form -->
+        <form action="">
+            <div class="row">
+                <div class="left">
+                <label for="name">Name</label>
+                </div>
+                <div class="right">
+                <input type="text" name="name" placeholder="Enter attendant name.." required>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="left">
+                    <label for="username">Username</label>
+                    </div>
+                    <div class="right">
+                    <input type="text" name="username" placeholder="Enter username.." required>
+                    </div>
+                </div>
+            <div class="row">
+                    <div class="left">
+                    <label for="password">Password</label>
+                    </div>
+                    <div class="right">
+                    <input type="password" name="password" value="Password12!" readonly>
+                    </div>
+            </div>
+            <button class="add-btn" type="submit">Add</button>
+            <button class="cancel-btn" onclick="showContainer(event, 'view-attendant')" >cancel</button>
+        </form>
+
+        </div>
+    
     </div>
 
 
