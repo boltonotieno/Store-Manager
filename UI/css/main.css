@@ -452,3 +452,12 @@ i{
 }
 
 
+/* search input fieldset css */
+.search-input input[type=text] {
+    width: 130px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 10px;
+    background-color: whitesmoke;
+}
+
