@@ -88,7 +88,24 @@ function insertFunction() {
     cell2.innerHTML = pquantity;
 }
 
-
+// filter product by name
+function productFilter() {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("productInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("view-products");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
 
 // run showContainer function
 showContainer()
