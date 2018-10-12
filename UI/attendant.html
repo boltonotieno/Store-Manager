@@ -45,6 +45,73 @@
             <h3>Sales: <span> add</span></h3>
         </div>
 
+        <div class="section">
+        <!-- Product add form -->
+        <div class="product-container">
+        <form action="">
+            <div class="row">
+                <div class="left">
+                <label for="pid">Product ID</label>
+                </div>
+                <div class="right">
+                <input id="pid" type="text" name="pid" placeholder="Enter ID.." required>
+                <label class="search-label">Search</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="left">
+                <label for="pname">Product Name</label>
+                </div>
+                <div class="right">
+                <input id="pname" type="text" name="pname" placeholder="Enter Product name.." required>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="left">
+                    <label for="quantity">Quantity</label>
+                    </div>
+                    <div class="right">
+                    <input id="pquantity" type="text" name="quantity" placeholder="Enter quantity.." required>
+                    </div>
+            </div>
+            <div class="row">
+                    <div class="left">
+                    <label for="price">Price  <cite>  (ksh)</cite></label>
+                    </div>
+                    <div class="right">
+                    <input id="pprice" type="text" name="price" placeholder="Enter price.." required>
+                    </div>
+            
+            </div>            
+        </form>
+        <button class="add-btn" onclick="insertFunction()">Add</button>
+        <button class="cancel-btn" onclick="showContainer(event, 'view-sales')">cancel</button>
+        </div>
+
+                <!-- Product list Conatiner-->
+        <div class="product-container">
+        <h2>Cart</h2>
+        <table id="products">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Pilsner</td>
+                <td>200</td>
+                <td>20</td>
+            </tr>
+        </table><br>
+        <label for="total">Amount</label><br>
+        <input type="text" name="total" placeholder="Total Amount">
+        <button class="add-btn" onclick="showContainer(event, 'view-sales')">Checkout</button>
+        </div>
+
+        </div>
+
         
     </div>
 
@@ -135,3 +202,4 @@
 <script src="js/main.js" ></script>
 </body>
 </html>
+

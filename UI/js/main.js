@@ -71,5 +71,24 @@ function inputFilter() {
     }
   }
 
+function insertFunction() {
+    var table = document.getElementById("products");
+    var pid = document.getElementById("pid").value;
+    var pname = document.getElementById("pname").value;
+    var pprice = document.getElementById("pprice").value;
+    var pquantity = document.getElementById("pquantity").value;
+    var row = table.insertRow(1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    cell1.innerHTML = pid;
+    cell2.innerHTML = pname;
+    cell2.innerHTML = pprice;
+    cell2.innerHTML = pquantity;
+}
+
+
+
 // run showContainer function
 showContainer()
