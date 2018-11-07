@@ -452,3 +452,20 @@ i{
 }
 
 
+/* search input fieldset css */
+.search-input input[type=text] {
+    width: 130px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+    padding: 12px 5px 12px 5px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    margin-bottom: 5px;
+}
+
+.search-input input[type=text]:focus{
+    width: 100%;
+}
+
