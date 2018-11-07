@@ -217,7 +217,7 @@ i{
 
 /* product table list css */
 
-#products {
+#products{
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -242,6 +242,7 @@ i{
 }
 
 /* modify buttons for products css */
+
 .modify-btn{
     text-align: center;
 }
@@ -351,3 +352,103 @@ i{
     padding: 10px;
     font-weight: bolder;
 }
+
+
+/* view sales css */
+
+.sales-container{
+    background-color: #FFFFFF;
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 32px;
+}
+
+/* sales table css */
+#sales{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#sales td, #sales th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-size: 14px;
+}
+
+#sales tr:nth-child(even){background-color: #f2f2f2;}
+
+#sales tr:hover {background-color: #ddd;}
+
+#sales th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4471B7;
+    color: white;
+}
+
+/* sales edit page css */
+.sales-container input[type=text], select{
+    width: 20%;
+    height: 20px;
+    outline: none;
+    border-radius: 1px;
+
+}
+
+.sales-container input[type=text]:focus{
+    border: 2px solid #4471B7;
+}
+
+.sales-container label{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14px;
+}
+
+.sales-container select{
+    background-color: aliceblue;
+}
+
+.sales-container .add-btn, .cancel-btn {
+    border-radius: 5px;
+    width: 80px;
+    padding: 5px;
+    margin-top: 20px;
+    margin-right: 20px;
+    opacity: 0.7;
+}
+
+.sales-container .add-btn{
+    background-color: #4471B7;
+   
+
+}
+.sales-container .cancel-btn{
+    background-color: #ffebee ;
+}
+
+.sales-container .add-btn:hover, .cancel-btn:hover {
+    opacity: 1;
+}
+
+
+/* product form css */
+
+.product-form{
+    margin-top: 12px;
+    padding: 12px;
+    width: 90%;
+    padding-left: 0;
+    
+}
+
+.product-form input[type=text]{
+    background-color: #FFFFFF;
+    width: 15%;
+    
+}
+
+

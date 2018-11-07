@@ -36,14 +36,16 @@
         <hr>
         <li><a href="">Category</a></li>
         <hr>
-        <li><a href="">Sales</a></li>
+        <li><a class="tablinks" onclick="showContainer(event, 'sales')" >Sales</a></li>
         <hr>
         <br>
         <br>
-        <li><a href="">Logout</a></li>
+        <li><a href="login.html">Logout</a></li>
         <hr>
     </ul>
     </div>
+
+    <!-- Dashbaord page------------------------------------------------------------------- -->
 
     <div id="dashboard" class="dash-container">
             <div class="title">
@@ -74,6 +76,10 @@
                     <a>More info..</a>
             </div>
     </div>
+
+    
+
+    <!-- Product Page-------------------------------------------------------------------- -->
  
     <div id="product" class="dash-container">
         <div class="title">
@@ -118,9 +124,9 @@
                     <div class="right">
                   <select>
                         <option value="0">Select Category:</option>
-                        <option value="1">Audi</option>
-                        <option value="2">BMW</option>
-                        <option value="3">Citroen</option>
+                        <option value="1">Beer</option>
+                        <option value="2">Wine</option>
+                        <option value="3">Vodka</option>
                     </select>
                     </div>
             </div>
@@ -339,7 +345,161 @@
             </div>
         
     </div>
+<!-- check div later    -->
+</div> 
+    
+    <!-- Sales page------------------------------------------------------------------------------- -->
+
+    <div id="sales" class="dash-container">
+        <div class="title">
+            <h3>Sales: <span> view</span></h3>
+        </div>
+
+        <div class="sales-container">
+                <table id="sales">
+                    <tr>
+                        <th>Sales ID</th>
+                        <th>Attendant</th>
+                        <th>Date Time</th>
+                        <th>Total Products</th>
+                        <th>Total Amount</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>John Doe</td>
+                        <td>1-04-2018 15:30</td>
+                        <td>2</td>
+                        <td>100</td>
+                        <td>
+                            <div class="sales-modify-btn">
+                            <a onclick="showContainer(event, 'edit-sales')" ><button>view</button></a>
+                            <button class="sales-delete">delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jane Doe</td>
+                        <td>1-04-2018 15:30</td>
+                        <td>2</td>
+                        <td>1000</td>
+                        <td>
+                            <div class="-sales-modify-btn">
+                                <a onclick="showContainer(event, 'edit-sales')" ><button>view</button></a>
+                                <button class="sales-delete">delete</button>
+                                </div>
+                            </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>John Doe</td>
+                        <td>1-04-2018 15:30</td>
+                        <td>5</td>
+                        <td>500</td>
+                        <td>
+                            <div class="sales-modify-btn">
+                            <a onclick="showContainer(event, 'edit-sales')" ><button>view</button></a>
+                            <button class="-sales-delete">delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+
+    </div>
+
+    <!-- Edit sales page------------------------------------------------------------------- -->
+
+    <div id="edit-sales" class="dash-container">
+        <div class="title">
+            <h3>Sales: <span> edit</span></h3>
+        </div>
+
+        <div class="sales-container">
+                <table id="sales">
+                    <tr>
+                        <th>Product</th>
+                        <th>Quanity</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>Pilsner</td>
+                        <td>2</td>
+                        <td>400</td>
+                        <td>
+                            <div class="sales-modify-btn">
+                            <button class="sales-delete">delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>JohnyWalker</td>
+                        <td>2</td>
+                        <td>400</td>
+                        <td>
+                            <div class="-sales-modify-btn">
+                                <button class="sales-delete">delete</button>
+                                </div>
+                        </td>
+                    </tr>
+                </table>
+                </div>
         
+        <div class="sales-container">
+        <form action="">
+            <div class="row">
+                <div class="left">
+                <label for="saleid">Sales ID</label>
+                </div>
+                <div class="right">
+                <input type="text" name="saleid" placeholder="" readonly>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="left">
+                    <label for="totalprice">Total Price  <cite>  (ksh)</cite></label>
+                    </div>
+                    <div class="right">
+                    <input type="text" name="totalprice" placeholder="" readonly>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="left">
+                <label for="date">Date:</label>
+                </div>
+                <div class="right">
+                <input type="datetime-local" name="date" placeholder="" readonly>
+                </div>
+            </div>
+            <br>
+
+            <div class="product-form">
+
+                <label for="product"><b>Product</label>
+                <input type="text" placeholder="" name="quantity" readonly>
+
+                <label for="quantity"><b>Quantity</label>
+                <input type="text" placeholder="" name="quantity" required>
+                
+                <label for="rate"><b>Rate</label>
+                <input type="text" placeholder="" name="rate" readonly>
+            
+                <label for="amount"><b>Amount</label>
+                <input type="text" placeholder="" name="amount" readonly>
+
+            </div>
+
+            <button class="add-btn" type="submit">Save</button>
+            <button onclick="showContainer(event, 'sales')" class="cancel-btn" type="submit">cancel</button>
+        </form>
+
+        </div>
+
+    </div>
+
+
 <script src="js/main.js"></script>
 </body>
 </html>
