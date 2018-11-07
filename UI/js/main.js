@@ -1,5 +1,4 @@
 // Get the element with id="default" and click on it
-document.getElementById("default").click()
 
 function showContainer(evt, sectionID) {
     // Declare all variables
@@ -17,8 +16,11 @@ function showContainer(evt, sectionID) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
 
-    document.getElementById(sectionID).style.display = "block";
-    evt.currentTarget.className += " active";  
+    var sectionid = document.getElementById(sectionID);
+    if(sectionid){
+      sectionid.style.display = "block";
+      evt.currentTarget.className += " active";
+    } 
 }
 
  function clickFunction() {
@@ -36,14 +38,19 @@ var btn = document.getElementById("edit-btn");
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button((edit-btn), open the modal (editModal)
-btn.onclick = function() {
-    modal.style.display = "block";
+if(btn){
+  btn.onclick = function(){
+    modal.style.display = "block"
+  }
 }
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
+if(span){
+    span.onclick = function() {
+        modal.style.display = "none";
+  }
 }
+
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -107,5 +114,44 @@ function productFilter() {
     }
   }
 
+// login backend *******************************************************************************************
+
+var login_form = document.getElementById('login');
+if(login_form){
+  login_form.addEventListener('submit', Login);
+}
+
+function Login(e){
+  e.preventDefault();
+
+  let username = document.getElementById('username').value;
+  let password = document.getElementById('password').value;
+
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/auth/login', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, test/plain, */*',
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({username:username, password:password})
+  })
+  .then((res) => res.json())
+  // .then((data) => console.log(data))
+  .then((data) => {
+    localStorage.setItem('access_token', data.access_token)
+    if(data.access_token){
+      redirect: window.location.replace("./admin.html")
+    } else{
+     alert("Invalid Username or Password");
+    }
+  })
+  .catch((err) => console.log(err))
+}
+
+// END login backend ************************************************************************************
+
+
+
 // run showContainer function
 showContainer()
+
