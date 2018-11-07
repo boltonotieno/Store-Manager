@@ -103,3 +103,51 @@ i{
     margin-bottom: 10%;
 }
 
+
+/* view sales css */
+
+.view-sales-container{
+    background-color: #FFFFFF;
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 32px;
+}
+
+/* sales table css */
+#sales{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#sales td, #sales th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-size: 14px;
+}
+
+#sales tr:nth-child(even){background-color: #f2f2f2;}
+
+#sales tr:hover {background-color: #ddd;}
+
+#sales th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4471B7;
+    color: white;
+}
+
+
+/* date picker css */
+.search-input input[type=date]{
+    width: 130px;
+    padding: 2px 12px 1px 12px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+
