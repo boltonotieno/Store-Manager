@@ -466,6 +466,15 @@ i{
 }
 
 .search-input input[type=text]:focus{
-    width: 100%;
+    width: 50%;
+}
+
+/* date picker css */
+.search-input input[type=date]{
+    width: 130px;
+    padding: 2px 12px 1px 12px;
+    margin-left: 50px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
 }
 
