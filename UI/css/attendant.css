@@ -235,7 +235,7 @@ i{
 }
 
 
-/* product table list css */
+/*product table list css */
 
 #products{
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -261,3 +261,46 @@ i{
     color: white;
 }
 
+/* search input fieldset css */
+.search-input input[type=text] {
+    width: 130px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+    padding: 12px 5px 12px 5px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    margin-bottom: 5px;
+}
+
+.search-input input[type=text]:focus{
+    width: 50%;
+}
+
+
+/*view product table list css */
+
+#view-products{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#view-products td, #products th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-size: 14px;
+}
+
+#view-products tr:nth-child(even){background-color: #f2f2f2;}
+
+#view-products tr:hover {background-color: #ddd;}
+
+#view-products th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4471B7;
+    color: white;
+}
