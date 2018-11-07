@@ -138,7 +138,8 @@
                 <th>Category</th>
                 <th>Price</th>
                 <th>Quantity</th>
-                <th>Min Quantity</th>
+                <th>Min quantity</th>
+                <th>Action</th>
             </tr>
             <tr>
                 <td>Pilsner</td>
@@ -146,6 +147,12 @@
                 <td>200</td>
                 <td>20</td>
                 <td>5</td>
+                <td>
+                    <div class="modify-btn">
+                    <button id="edit-btn" class="edit-btn">modify</button>
+                    <button class="delete-btn">delete</button>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td>Guinness</td>
@@ -153,6 +160,12 @@
                 <td>200</td>
                 <td>30</td>
                 <td>5</td>
+                <td>
+                    <div class="modify-btn">
+                        <button id="edit-btn" class="edit-btn">modify</button>
+                        <button class="delete-btn">delete</button>
+                        </div>
+                    </td>
             </tr>
             <tr>
                 <td>Smirnof</td>
@@ -160,6 +173,12 @@
                 <td>1000</td>
                 <td>10</td>
                 <td>5</td>
+                <td>
+                    <div class="modify-btn">
+                    <button id="edit-btn" class="edit-btn">modify</button>
+                    <button class="delete-btn">delete</button>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td>BlueMoon</td>
@@ -167,6 +186,12 @@
                 <td>600</td>
                 <td>23</td>
                 <td>5</td>
+                <td>
+                    <div class="modify-btn">
+                        <button id="edit-btn" class="edit-btn">modify</button>
+                        <button class="delete-btn">delete</button>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td>JohnyWalker</td>
@@ -174,6 +199,12 @@
                 <td>2500</td>
                 <td>10</td>
                 <td>5</td>
+                <td>
+                    <div class="modify-btn">
+                        <button id="edit-btn" class="edit-btn">modify</button>
+                        <button class="delete-btn">delete</button>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td>Kibao</td>
@@ -181,6 +212,12 @@
                 <td>600</td>
                 <td>15</td>
                 <td>5</td>
+                <td>
+                    <div class="modify-btn">
+                        <button id="edit-btn" class="edit-btn">modify</button>
+                        <button class="delete-btn">delete</button>
+                    </div>
+                 </td>
             </tr>
             <tr>
                 <td>Kenya Cane</td>
@@ -188,6 +225,12 @@
                 <td>500</td>
                 <td>25</td>
                 <td>5</td>
+                <td>
+                    <div class="modify-btn">
+                        <button id="edit-btn" class="edit-btn">modify</button>
+                        <button class="delete-btn">delete</button>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td>Red Label</td>
@@ -195,6 +238,12 @@
                 <td>2500</td>
                 <td>10</td>
                 <td>5</td>
+                <td>
+                    <div class="modify-btn">
+                        <button id="edit-btn" class="edit-btn">modify</button>
+                        <button class="delete-btn">delete</button>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td>Four Cousins</td>
@@ -202,6 +251,12 @@
                 <td>1000</td>
                 <td>8</td>
                 <td>5</td>
+                <td>
+                    <div class="modify-btn">
+                        <button id="edit-btn" class="edit-btn">modify</button>
+                        <button class="delete-btn">delete</button>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td>Black Label</td>
@@ -209,10 +264,80 @@
                 <td>3500</td>
                 <td>5</td>
                 <td>5</td>
+                <td>
+                    <div class="modify-btn">
+                        <button id="edit-btn" class="edit-btn">modify</button>
+                        <button class="delete-btn">delete</button>
+                    </div>
+                </td>                
             </tr>
         </table>
         </div>
 
+            <!-- Edit Modal -->
+            <div id="editModal" class="editmodal">
+                <!-- Edit Modal content -->
+                <div class="editmodal-content">
+                    <span class="close">&times;</span>
+                    <form action="">
+                        <legend><strong>Edit Product:</strong></legend>
+                        <div class="left-row">
+                        <div class="row">
+                            <div class="left">
+                            <label for="pname">Product Name</label>
+                            </div>
+                            <div class="right">
+                            <input type="text" name="pname" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div class="left">
+                                <label for="price">Price  <cite>  (ksh)</cite></label>
+                                </div>
+                                <div class="right">
+                                <input type="text" name="price"  required>
+                                </div>
+                        </div>
+                        </div>
+            
+                        <div class="right-row">
+                        <div class="row">
+                                <div class="left">
+                                <label for="quantity">Quantity</label>
+                                </div>
+                                <div class="right">
+                                <input type="text" name="quantity" required>
+                                </div>
+                        </div>
+                        <div class="right-row">
+                                <div class="row">
+                                        <div class="left">
+                                        <label for="min-quantity">Min quantity</label>
+                                        </div>
+                                        <div class="right">
+                                        <input type="text" name="min-quantity" required>
+                                        </div>
+                                </div>
+                        <div class="row">
+                                <div class="left">
+                                <label for="quantity">Category</label>
+                                </div>
+                                <div class="right">
+                              <select>
+                                    <option value="0">Select Category:</option>
+                                    <option value="1">Beer</option>
+                                    <option value="2">Spirit</option>
+                                    <option value="3">Wine</option>
+                                </select>
+                                </div>
+                        </div>
+                        </div>
+                        <button class="edit-btn" type="submit">Save</button>
+                        <button class="cancel-btn" type="submit">cancel</button>
+                    </form>
+                </div>
+            </div>
+        
     </div>
         
 <script src="js/main.js"></script>
