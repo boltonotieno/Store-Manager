@@ -26,8 +26,8 @@
         <li class="dropdown"><a>Attendant
         <i class="down-arrow"></i></a>
         <div class="dropdown-content">
-                <a onclick="showContainer(event, 'add-attendant')">add</a>
-                <a href="#">view</a>
+                <a class="tablinks" onclick="showContainer(event, 'add-attendant')">add</a>
+                <a class="tablinks" onclick="showContainer(event, 'view-attendant')">view</a>
 
         </div>
         </li>
@@ -545,6 +545,51 @@
         </div>
     
     </div>
+
+    <!-- view attendant page------------------------------------------------------------ -->
+
+    <div id="view-attendant" class="dash-container">
+        <div class="title">
+            <h3>Attendant: <span> view</span></h3>
+        </div>
+            
+        <div class="view-attendant-container">
+            <button class="add-btn" onclick="showContainer(event, 'add-attendant')">Add Attendant</button>
+    
+        <!-- Attendant view table -->
+            <table id="sales">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>John Doe</td>
+                    <td>JDoe</td>
+                    <td>
+                        <div class="sales-modify-btn">
+                        <button class="attendant-delete">delete</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Jane Doe</td>
+                    <td>JaneD</td>
+                    <td>
+                        <div class="-sales-modify-btn">
+                            <button class="attendant-delete">delete</button>
+                            </div>
+                        </td>
+                </tr>
+            </table>        
+            
+         </div>
+        
+    </div>
+
 
 
 <script src="js/main.js"></script>
