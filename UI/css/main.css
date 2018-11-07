@@ -478,3 +478,51 @@ i{
     border-radius: 4px;
 }
 
+
+/* add attendant css */
+.attendant-container{
+    background-color: #FFFFFF;
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 32px;
+}
+
+.attendant-container input[type=text], input[type=password]{
+    width: 50%;
+    height: 25px;
+    outline: none;
+    border-radius: 1px;
+
+}
+
+.attendant-container input[type=text]:focus{
+    border: 2px solid #4471B7;
+}
+
+.attendant-container label{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 17px;
+}
+
+.attendant-container .add-btn, .cancel-btn {
+    border-radius: 5px;
+    width: 80px;
+    padding: 5px;
+    margin-top: 20px;
+    margin-right: 20px;
+    opacity: 0.7;
+}
+
+.attendant-container .add-btn{
+    background-color: #4471B7;
+}
+.attendant-container .cancel-btn{
+    background-color: #ffebee ;
+}
+.attendant-container .add-btn:hover, .cancel-btn:hover{
+    opacity: 0.9;
+}
+
+
