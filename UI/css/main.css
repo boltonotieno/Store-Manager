@@ -43,9 +43,9 @@ i{
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
 }
-
-hr.active{
-    border: 3px solid #4471B7;    
+ 
+.side-nav li a.active{
+    color: #4471B7;
 }
 
 .side-nav li a{
@@ -88,11 +88,16 @@ hr.active{
     width: 90%;
 }
 
+.section{
+    width: 100%;
+}
+
 .dash-container{
     padding-top: 30px;
     margin-left: 15%;
     width: 100%; 
     height: 100%;  
+    margin-bottom: 10%;
 }
 
 .title{
@@ -137,3 +142,80 @@ hr.active{
     background-color: #e0f2f1;
 
 }
+
+
+/* Add product CSS */
+
+.product-container{
+    background-color: #FFFFFF;
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+    
+}
+
+.row{
+    width: 100%;
+    padding-top: 20px;
+    height: 30px;
+    
+}
+
+.row .left{
+    width: 15%;
+    float: left;
+
+}
+.row .right{
+    width: 85%;
+   
+}
+
+.product-container input[type=text], select{
+    width: 50%;
+    height: 25px;
+    outline: none;
+    border-radius: 1px;
+
+}
+
+.product-container input[type=text]:focus{
+    border: 2px solid #4471B7;
+}
+
+.product-container label{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 17px;
+}
+
+.product-container select{
+    background-color: aliceblue;
+}
+
+.product-container .add-btn, .cancel-btn {
+    border-radius: 5px;
+    width: 80px;
+    padding: 5px;
+    margin-top: 20px;
+    margin-right: 20px;
+    opacity: 0.7;
+}
+
+.product-container .add-btn{
+    background-color: #4471B7;
+
+}
+.product-container .cancel-btn{
+    background-color: #ffebee ;
+}
+
+.product-container .add-btn:hover, .cancel-btn:hover {
+    opacity: 1;
+}
+
+
+
+
+
+
