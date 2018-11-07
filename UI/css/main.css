@@ -152,7 +152,7 @@ i{
     width: 80%;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
-    
+    margin-bottom: 32px;
 }
 
 .row{
@@ -204,6 +204,7 @@ i{
 
 .product-container .add-btn{
     background-color: #4471B7;
+   
 
 }
 .product-container .cancel-btn{
@@ -214,7 +215,30 @@ i{
     opacity: 1;
 }
 
+/* product table list css */
 
+#products {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#products td, #products th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#products tr:nth-child(even){background-color: #f2f2f2;}
+
+#products tr:hover {background-color: #ddd;}
+
+#products th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4471B7;
+    color: white;
+}
 
 
 
