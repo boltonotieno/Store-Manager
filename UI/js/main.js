@@ -142,13 +142,92 @@ function Login(e){
     if(data.access_token){
       redirect: window.location.replace("./admin.html")
     } else{
-     alert("Invalid Username or Password");
+      let error_message = document.getElementById('error-message')
+      if (error_message){
+        error_message.innerHTML = data.message
+      }
     }
   })
   .catch((err) => console.log(err))
 }
 
 // END login backend ************************************************************************************
+
+// Access token from login
+const token = localStorage.getItem('access_token')
+const access_token = "Bearer " + token
+
+// Add User backend *************************************************************************************
+var registration_form = document.getElementById('registration');
+if(registration_form){
+  registration_form.addEventListener('submit', Registration);
+}
+
+
+function Registration(e){
+  e.preventDefault();
+
+  let name_reg = document.getElementById('name-reg').value;
+  let username_reg = document.getElementById('username-reg').value;
+  let email_reg = document.getElementById('email-reg').value;
+  let password_reg = document.getElementById('password-reg').value;
+  let gender_reg = document.getElementById('gender-reg').value;
+  let role_reg = document.getElementById('role-reg').value;
+
+  const data_reg = {
+    "name": name_reg,
+    "username": username_reg,
+    "email": email_reg,
+    "password": password_reg,
+    "gender": gender_reg,
+    "role": role_reg
+  }
+
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/auth/signup', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, test/plain, */*',
+      'Content-type': 'application/json',
+      "Authorization": access_token
+    },
+    body: JSON.stringify(data_reg)
+  })
+  .then((res) => res.json())
+  // .then((data) => console.log(data))
+  .then((data) => {
+    let error_reg = document.getElementById('error-reg')
+    if(data.message == "User exist with the same username/email"){
+      error_reg.style.color = 'red';
+      error_reg.innerHTML= data.message;
+    }
+    if(data.message == "Invalid Email"){
+      error_reg.style.color = 'red';
+      error_reg.innerHTML= data.message;
+    }
+    if(data.message == "Gender should  either be male or female"){
+      error_reg.style.color = 'red';
+      error_reg.innerHTML= data.message;
+    }
+    if(data.message == "Role should  either be admin or attendant"){
+      error_reg.style.color = 'red';
+      error_reg.innerHTML= data.message;
+    }
+    if(data.message == "User created successfully"){
+      error_reg.style.color = 'green';
+      error_reg.innerHTML= data.message;
+    }
+    if(data.msg == "Token has expired"){
+      error_reg.style.color = 'red';
+      error_reg.innerHTML= 'Session has expired kindly login again'
+    }
+    
+  })
+  .catch((err) => console.log(err))
+}
+
+
+
+// END Add User backend **********************************************************************************
 
 // run showContainer function
 showContainer()

@@ -501,6 +501,10 @@ i{
     border: 2px solid #4471B7;
 }
 
+.attendant-container select{
+    background-color: aliceblue;
+}
+
 .attendant-container label{
     font-family: 'Times New Roman', Times, serif;
     font-size: 17px;
@@ -620,4 +624,18 @@ i{
 .add-category-container label{
     font-family: 'Times New Roman', Times, serif;
     font-size: 17px;
+}
+
+/* error message******************************** */
+#error-reg{
+    text-align: center;
+    font-family:  "Lucida Console", Monaco, monospace;
+    font-size: 15px;
+    color: red
+}
+#success-reg{
+    text-align: center;
+    font-family:  "Lucida Console", Monaco, monospace;
+    font-size: 15px;
+    color: green;
 }
