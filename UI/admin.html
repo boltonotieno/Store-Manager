@@ -40,7 +40,7 @@
         <hr>
         <br>
         <br>
-        <li><a href="index.html">Logout</a></li>
+        <li><a id="logout-admin" href="index.html">Logout</a></li>
         <hr>
     </ul>
     </div>
@@ -572,7 +572,7 @@
                     </div>
                 </div>
             <button class="add-btn" type="submit">Add</button>
-            <button class="cancel-btn" onclick="showContainer(event, 'view-attendant')" >cancel</button>
+            <button id="view-users" class="cancel-btn" onclick="showContainer(event, 'view-attendant')" >cancel</button>
         </form>
 
         </div>
@@ -590,35 +590,7 @@
             <button class="add-btn" onclick="showContainer(event, 'add-attendant')">Add Attendant</button>
     
         <!-- Attendant view table -->
-            <table id="sales">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Username</th>
-                    <th>Action</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>John Doe</td>
-                    <td>JDoe</td>
-                    <td>
-                        <div class="sales-modify-btn">
-                        <button class="attendant-delete">delete</button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jane Doe</td>
-                    <td>JaneD</td>
-                    <td>
-                        <div class="-sales-modify-btn">
-                            <button class="attendant-delete">delete</button>
-                            </div>
-                        </td>
-                </tr>
-            </table>        
-            
+            <table id="users"></table>           
          </div>
         
     </div>

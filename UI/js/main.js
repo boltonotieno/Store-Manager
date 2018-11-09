@@ -1,5 +1,45 @@
-// Get the element with id="default" and click on it
+  // login backend *******************************************************************************************
+var login_form = document.getElementById('login');
+if(login_form){
+  login_form.addEventListener('submit', Login);
+}
 
+function Login(e){
+  e.preventDefault();
+
+  let username = document.getElementById('username').value;
+  let password = document.getElementById('password').value;
+
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/auth/login', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, test/plain, */*',
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({username:username, password:password})
+  })
+  .then((res) => res.json())
+  // .then((data) => console.log(data))
+  .then((data) => {
+    localStorage.setItem('access_token', data.access_token)
+    if(data.access_token){
+      redirect: window.location.replace("./admin.html")
+    } else{
+      let error_message = document.getElementById('error-message')
+      if (error_message){
+        error_message.innerHTML = data.message
+      }
+    }
+  })
+  .catch((err) => console.log(err))
+}
+
+// END login backend ************************************************************************************
+
+// Access token from login
+const token = localStorage.getItem('access_token')
+const access_token = "Bearer " + token
+  
 function showContainer(evt, sectionID) {
     // Declare all variables
     var i, dashboardcontainer, tablinks;
@@ -24,8 +64,12 @@ function showContainer(evt, sectionID) {
 }
 
  function clickFunction() {
+
      // Get the element with id="default" and click on it
      document.getElementById("default").click();
+    
+    //  get all users on load
+     getUsers()
  }
 
 // Get the whole modal
@@ -114,53 +158,13 @@ function productFilter() {
     }
   }
 
-// login backend *******************************************************************************************
 
-var login_form = document.getElementById('login');
-if(login_form){
-  login_form.addEventListener('submit', Login);
-}
-
-function Login(e){
-  e.preventDefault();
-
-  let username = document.getElementById('username').value;
-  let password = document.getElementById('password').value;
-
-  fetch('https://my-store-manager-api.herokuapp.com/api/v2/auth/login', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json, test/plain, */*',
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify({username:username, password:password})
-  })
-  .then((res) => res.json())
-  // .then((data) => console.log(data))
-  .then((data) => {
-    localStorage.setItem('access_token', data.access_token)
-    if(data.access_token){
-      redirect: window.location.replace("./admin.html")
-    } else{
-      let error_message = document.getElementById('error-message')
-      if (error_message){
-        error_message.innerHTML = data.message
-      }
-    }
-  })
-  .catch((err) => console.log(err))
-}
-
-// END login backend ************************************************************************************
-
-// Access token from login
-const token = localStorage.getItem('access_token')
-const access_token = "Bearer " + token
 
 // Add User backend *************************************************************************************
 var registration_form = document.getElementById('registration');
 if(registration_form){
   registration_form.addEventListener('submit', Registration);
+
 }
 
 
@@ -188,6 +192,8 @@ function Registration(e){
     headers: {
       'Accept': 'application/json, test/plain, */*',
       'Content-type': 'application/json',
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Request-Method': '*',
       "Authorization": access_token
     },
     body: JSON.stringify(data_reg)
@@ -228,6 +234,62 @@ function Registration(e){
 
 
 // END Add User backend **********************************************************************************
+
+
+// GET User backend *************************************************************************************
+var view_users = document.getElementById('view-users');
+if(view_users){
+  view_users.addEventListener('click', getUsers);
+}
+
+
+function getUsers(){
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/users', {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Request-Method': '*',
+      "Authorization": access_token
+    }
+  })
+  .then((res) => res.json())
+  // .then((data) => console.log(data))
+  .then((data) => {
+    let all_users = `
+                      <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Username</th>
+                      <th>Email</th>
+                      <th>Gender</th>
+                      <th>Role</th>
+                      <th>Action</th>
+                      </tr>
+                      `;
+    data['Users'].forEach(function(user){
+      all_users +=  `
+        <tr>
+            <td>${user.id}</td>
+            <td>${user.name}</td>
+            <td>${user.username}</td>
+            <td>${user.email}</td>
+            <td>${user.gender}</td>
+            <td>${user.role}</td>
+            <td>
+                <div class="sales-modify-btn">
+                <button class="attendant-delete">delete</button>
+                </div>
+            </td>
+        </tr>
+      `;
+    });
+    document.getElementById('users').innerHTML = all_users;
+  })
+  .catch((err) => console.log(err))
+}
+
+// END GET User backend **********************************************************************************
+
 
 // run showContainer function
 showContainer()
