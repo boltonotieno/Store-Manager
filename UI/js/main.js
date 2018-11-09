@@ -75,16 +75,29 @@ function showContainer(evt, sectionID) {
 // Get the whole modal
 var modal = document.getElementById('editModal');
 
+// Get the whole edit role modal
+var edit_role_modal = document.getElementById('edit_roleModal');
+
 // Get the button that opens the modal i.e edit-btn
 var btn = document.getElementById("edit-btn");
 
+// Get the button that opens the edit role modal i.e editRole-btn
+var edit_role_btn = document.getElementById("editRole-btn");
+
 // Get the <span> element that closes the modal i.e the x symbol
-var span = document.getElementsByClassName("close")[0];
+const span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button((edit-btn), open the modal (editModal)
 if(btn){
   btn.onclick = function(){
     modal.style.display = "block"
+  }
+}
+
+// When the user clicks the button((edit-btn), open the modal (editModal)
+if(edit_role_btn){
+  edit_role_btn.onclick = function(){
+    edit_role_modal.style.display = "block"
   }
 }
 
@@ -135,8 +148,8 @@ function insertFunction() {
     var cell4 = row.insertCell(3);
     cell1.innerHTML = pid;
     cell2.innerHTML = pname;
-    cell2.innerHTML = pprice;
-    cell2.innerHTML = pquantity;
+    cell3.innerHTML = pprice;
+    cell4.innerHTML = pquantity;
 }
 
 // filter product by name
@@ -269,27 +282,125 @@ function getUsers(){
     data['Users'].forEach(function(user){
       all_users +=  `
         <tr>
-            <td>${user.id}</td>
+            <td id="user-id">${user.id}</td>
             <td>${user.name}</td>
             <td>${user.username}</td>
             <td>${user.email}</td>
             <td>${user.gender}</td>
             <td>${user.role}</td>
             <td>
-                <div class="sales-modify-btn">
-                <button class="attendant-delete">delete</button>
+                <div class="attendant-modify-btn">
+                <button id="editRole-btn" onclick="modifyRole()" class="attendant-role">role</button>
                 </div>
             </td>
         </tr>
       `;
     });
     document.getElementById('users').innerHTML = all_users;
+    document.getElementById('edit-roleChoice').innerText
   })
   .catch((err) => console.log(err))
 }
 
 // END GET User backend **********************************************************************************
 
+
+// PUT user role ****************************************************************************************
+
+// close edit role modal
+function close_roleModal(){
+  var edit_role_modal = document.getElementById('edit_roleModal');
+  edit_role_modal.style.display = "none";
+  getUsers()
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == edit_role_modal) {
+      edit_role_modal.style.display = "none";
+      getUsers()
+  }
+}
+
+
+function modifyRole(){
+  var table = document.getElementById("users"), index;
+  for ( var i = 0; i < table.rows.length; i++){
+    table.rows[i].onclick = function(){
+      index = this.rowIndex;
+      user_id = this.cells[0].innerHTML;
+      document.getElementById('edit-roleName').value = this.cells[1].innerHTML;
+      user_name = this.cells[1].innerHTML;
+      user_username = this.cells[2].innerHTML;
+      document.getElementById('edit-roleChoice').value = this.cells[5].innerHTML;
+    }
+  }
+
+  if(user_id){
+      // Get the whole edit role modal
+      var edit_role_modal = document.getElementById('edit_roleModal');
+      edit_role_modal.style.display = "block"
+
+  }
+
+  var role_form = document.getElementById('role-form');
+  if(role_form){
+  role_form.addEventListener('submit', Role);
+  }
+
+  function Role(e){
+    e.preventDefault();
+
+    let role_edit = document.getElementById('edit-roleChoice').value;
+
+    const data_edit_role = {
+      "role": role_edit
+    }
+
+    fetch(`https://my-store-manager-api.herokuapp.com/api/v2/users/${user_id}`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, test/plain, */*',
+        'Content-type': 'application/json',
+        "Authorization": access_token
+      },
+      body: JSON.stringify({role:role_edit})
+    })
+    .then((res) => res.json())
+    // .then((data) => console.log(data))
+    .then((data) => {
+          let error_role = document.getElementById('error-role')
+          if(data.message == `User ${user_username} is already an attendant`){
+          error_role.style.color = 'red';
+          error_role.innerHTML= data.message;      
+          }
+          if(data.message == `User ${user_username} is already an admin`){
+            error_role.style.color = 'red';
+            error_role.innerHTML= data.message;      
+            }
+          if(data.message == `Default admin cant be modified`){
+          error_role.style.color = 'red';
+          error_role.innerHTML= data.message;      
+          }
+          if(data.message == `User ${user_name} change role to ${role_edit} succesfully`){
+            error_role.style.color = 'green';
+            error_role.innerHTML= data.message;      
+            }
+          if(data.msg == "Token has expired"){
+            error_reg.style.color = 'red';
+            error_reg.innerHTML= 'Session has expired kindly login again'
+          }
+    })
+    .catch((err) => console.log(err))
+  }
+}
+
+// editrole-modal cancel-btn
+var view_users_role = document.getElementById('view-users-role');
+if(view_users_role){
+  view_users_role.addEventListener('click', getUsers);
+}
+// END PUT user role ************************************************************************************
 
 // run showContainer function
 showContainer()
