@@ -595,6 +595,46 @@
         
     </div>
 
+            <!-- Edit Role Modal -->
+            <div id="edit_roleModal" class="editmodal">
+                    <!-- Edit Modal content -->
+                    <div class="editmodal-content">
+                        <div><h3 id="error-role"></h3></div>
+                        <span onclick="close_roleModal()" id="close-role" class="close">&times;</span>
+                        <form id="role-form" action="">
+                            <legend><strong>Edit Role:</strong></legend>
+                            <div class="left-row">
+                            <div class="row">
+                                <div class="left">
+                                <label for="name">Name</label>
+                                </div>
+                                <div class="right">
+                                <input id="edit-roleName" type="text" name="name" readonly>
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class="left">
+                                    <label for="quantity">Role</label>
+                                    </div>
+                                    <div class="right">
+                                  <select id="edit-roleChoice">
+                                        <option value="admin">admin</option>
+                                        <option value="attendant">attendant</option>
+                                    </select>
+                                    </div>
+                            </div>
+                            </div>
+                            <button onclick="Role()" class="edit-btn" type="submit">Save</button>
+                            <button id="view-users-role" onclick="close_roleModal()" class="cancel-btn">cancel</button>
+                        </form>
+                    </div>
+                </div>
+            
+        </div>
+    <!-- check div later    -->
+    </div> 
+    
+
     <!-- view category page------------------------------------------------------------ -->
 
     <div id="view-category" class="dash-container">
