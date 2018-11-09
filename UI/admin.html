@@ -40,7 +40,7 @@
         <hr>
         <br>
         <br>
-        <li><a href="index.html">Logout</a></li>
+        <li><a id="logout-admin" href="index.html">Logout</a></li>
         <hr>
     </ul>
     </div>
@@ -513,33 +513,66 @@
         <div class="attendant-container">
 
             <!-- Attendant add form -->
-        <form action="">
+        <div><h3 id="error-reg"></h3></div>
+        <form id="registration" action="">
             <div class="row">
                 <div class="left">
-                <label for="name">Name</label>
+                <label for="name-reg">Name</label>
                 </div>
                 <div class="right">
-                <input type="text" name="name" placeholder="Enter attendant name.." required>
+                <input id="name-reg" type="text" name="name-reg" placeholder="Enter attendant name.." required>
                 </div>
             </div>
             <div class="row">
                     <div class="left">
-                    <label for="username">Username</label>
+                    <label for="username-reg">Username</label>
                     </div>
                     <div class="right">
-                    <input type="text" name="username" placeholder="Enter username.." required>
+                    <input id="username-reg" type="text" name="username-reg" placeholder="Enter username.." required>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="left">
+                        <label for="email-reg">Email</label>
+                        </div>
+                        <div class="right">
+                        <input id="email-reg" type="text" name="email-reg" placeholder="Enter email.." required>
+                        </div>
+                    </div>
+            <div class="row">
+                    <div class="left">
+                    <label for="password-reg">Password</label>
+                    </div>
+                    <div class="right">
+                    <input id="password-reg" type="password" name="password-reg" value="Password12!" readonly>
+                    </div>
+            </div>
+            <div class="row">
+                    <div class="left">
+                    <label for="gender-reg">Gender</label>
+                    </div>
+                    <div class="right">
+                        <select id="gender-reg">
+                              <option value="choice">Select Gender:</option>
+                              <option value="male">male</option>
+                              <option value="female">female</option>
+                        </select>
                     </div>
                 </div>
             <div class="row">
                     <div class="left">
-                    <label for="password">Password</label>
+                    <label for="role-reg">Role</label>
                     </div>
                     <div class="right">
-                    <input type="password" name="password" value="Password12!" readonly>
+                        <select id="role-reg">
+                              <option value="choice">Select Role:</option>
+                              <option value="attendant">attendant</option>
+                              <option value="admin">admin</option>
+                        </select>
                     </div>
-            </div>
+                </div>
             <button class="add-btn" type="submit">Add</button>
-            <button class="cancel-btn" onclick="showContainer(event, 'view-attendant')" >cancel</button>
+            <button id="view-users" class="cancel-btn" onclick="showContainer(event, 'view-attendant')" >cancel</button>
         </form>
 
         </div>
@@ -557,35 +590,7 @@
             <button class="add-btn" onclick="showContainer(event, 'add-attendant')">Add Attendant</button>
     
         <!-- Attendant view table -->
-            <table id="sales">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Username</th>
-                    <th>Action</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>John Doe</td>
-                    <td>JDoe</td>
-                    <td>
-                        <div class="sales-modify-btn">
-                        <button class="attendant-delete">delete</button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jane Doe</td>
-                    <td>JaneD</td>
-                    <td>
-                        <div class="-sales-modify-btn">
-                            <button class="attendant-delete">delete</button>
-                            </div>
-                        </td>
-                </tr>
-            </table>        
-            
+            <table id="users"></table>           
          </div>
         
     </div>

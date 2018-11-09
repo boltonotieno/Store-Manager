@@ -57,3 +57,10 @@ button:hover{
 
 }
 
+/* error message******************************** */
+#error-message, #error-token{
+    text-align: center;
+    font-family:  "Lucida Console", Monaco, monospace;
+    font-size: 15px;
+    color: red
+}
