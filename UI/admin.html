@@ -684,13 +684,14 @@
                 <div class="add-category-container">
         
                     <!-- category add form -->
-                <form action="">
+                <div><h4 id="error-category"></h4></div>
+                <form id="category-form" action="">
                     <div class="row">
                         <div class="left">
                         <label for="name">Name</label>
                         </div>
                         <div class="right">
-                        <input type="text" name="name" placeholder="Enter category name.." required>
+                        <input id="category-name" type="text" name="name" placeholder="Enter category name.." required>
                         </div>
                     </div>
                     <button class="add-btn" type="submit">Add</button>

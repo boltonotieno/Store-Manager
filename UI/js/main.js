@@ -402,6 +402,55 @@ if(view_users_role){
 }
 // END PUT user role ************************************************************************************
 
+
+// POST new category ************************************************************************************
+
+var category_form = document.getElementById('category-form');
+if(category_form){
+category_form.addEventListener('submit', postCategory);
+}
+
+function postCategory(e){
+  e.preventDefault();
+
+  let cat_name = document.getElementById('category-name').value
+
+  fetch(`https://my-store-manager-api.herokuapp.com/api/v2/category`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, test/plain, */*',
+      'Content-type': 'application/json',
+      "Authorization": access_token
+    },
+    body: JSON.stringify({name:cat_name})
+  })
+  .then((res) => res.json())
+  // .then((data) => console.log(data))
+  .then((data) => {
+    let error_category = document.getElementById('error-category')
+    if(data.message == `Category ${cat_name} already exist`){
+    error_category.style.color = 'red';
+    error_category.innerHTML= data.message;      
+    }
+    if(data.message == `Invalid category name ${cat_name}`){
+      error_category.style.color = 'red';
+      error_category.innerHTML= data.message;      
+      }
+    if(data.message == `Category created successfully`){
+      error_category.style.color = 'green';
+      error_category.innerHTML= data.message;      
+      }
+
+    if(data.msg == "Token has expired"){
+      error_category.style.color = 'red';
+      error_category.innerHTML= 'Session has expired kindly login again'
+    }
+  })
+  .catch((err) => console.log(err))
+}
+
+// End post new category ********************************************************************************
+
 // run showContainer function
 showContainer()
 
