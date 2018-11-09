@@ -590,6 +590,7 @@
             <button class="add-btn" onclick="showContainer(event, 'add-attendant')">Add Attendant</button>
     
         <!-- Attendant view table -->
+            <div><h4 id="no-users"></h4></div>
             <table id="users"></table>           
          </div>
         
@@ -646,32 +647,9 @@
                 <button class="add-btn" onclick="showContainer(event, 'add-category')">Add Category</button>
         
             <!-- Category view table -->
-                <table id="sales">
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Action</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Beer</td>
-                        <td>
-                            <div class="sales-modify-btn">
-                            <button class="attendant-delete">delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Wine</td>
-                        <td>
-                            <div class="-sales-modify-btn">
-                                <button class="attendant-delete">delete</button>
-                                </div>
-                            </td>
-                    </tr>
-                </table>        
-                
+                <div><h4 id="no-category"></h4></div>
+                <table id="category"></table>        
+
              </div>   
         </div>
 
@@ -695,9 +673,9 @@
                         </div>
                     </div>
                     <button class="add-btn" type="submit">Add</button>
-                    <button class="back-btn" onclick="showContainer(event, 'view-category')">Back</button>
+                    <button id="back-category-view" class="back-btn" onclick="showContainer(event, 'view-category')">Back</button>
                 </form>
-        
+                
                 </div>
             
             </div>

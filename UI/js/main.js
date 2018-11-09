@@ -70,6 +70,9 @@ function showContainer(evt, sectionID) {
     
     //  get all users on load
      getUsers()
+
+    //  get all categories on load
+     getCategory()
  }
 
 // Get the whole modal
@@ -268,6 +271,13 @@ function getUsers(){
   .then((res) => res.json())
   // .then((data) => console.log(data))
   .then((data) => {
+    let no_users = document.getElementById('no-users')
+    if(data.message == 'No users'){
+      no_users.style.display = 'block';
+      no_users.innerHTML= data.message; 
+    }
+    else{
+    no_users.style.display = 'none';
     let all_users = `
                       <tr>
                       <th>ID</th>
@@ -282,7 +292,7 @@ function getUsers(){
     data['Users'].forEach(function(user){
       all_users +=  `
         <tr>
-            <td id="user-id">${user.id}</td>
+            <td>${user.id}</td>
             <td>${user.name}</td>
             <td>${user.username}</td>
             <td>${user.email}</td>
@@ -298,6 +308,8 @@ function getUsers(){
     });
     document.getElementById('users').innerHTML = all_users;
     document.getElementById('edit-roleChoice').innerText
+
+    }
   })
   .catch((err) => console.log(err))
 }
@@ -450,6 +462,60 @@ function postCategory(e){
 }
 
 // End post new category ********************************************************************************
+
+
+// GET all categories ***********************************************************************************
+var view_category = document.getElementById('back-category-view');
+if(view_category){
+  view_category.addEventListener('click', getCategory);
+}
+
+function getCategory(){
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/category', {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Request-Method': '*',
+      "Authorization": access_token
+    }
+  })
+  .then((res) => res.json())
+  // .then((data) => console.log(data))
+  .then((data) => {
+    let no_category = document.getElementById('no-category')
+    if(data.message == 'No categories'){
+      no_category.style.display = 'block';
+      no_category.innerHTML= data.message; 
+    }
+    else{
+    no_category.style.display = 'none';
+          let all_categories = `
+                      <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Action</th>
+                      </tr>
+                      `;
+    data['Categories'].forEach(function(category){
+      all_categories +=  `
+        <tr>
+            <td>${category.id}</td>
+            <td>${category.name}</td>
+            <td>
+            <div class="sales-modify-btn">
+            <button>delete</button>
+            </div>
+        </td>
+        </tr>
+      `;
+    });
+    document.getElementById('category').innerHTML = all_categories;
+    }
+  })
+  .catch((err) => console.log(err))
+}
+
+// END GET all categories *******************************************************************************
 
 // run showContainer function
 showContainer()
