@@ -689,7 +689,7 @@ function setCategory(){
     else{
     data['Categories'].forEach(function(category){
       all_categories +=  `
-                        <option value="${category.name}">${category.name}</option>
+                        <option value="${category.id}">${category.name}</option>
                 `;
               });
       document.getElementById('cat-choice').innerHTML = all_categories;
@@ -700,6 +700,82 @@ function setCategory(){
 
 
 // END GET category into POST product form **************************************************************
+
+
+
+// POST product ****************************************************************************************
+var product_form = document.getElementById('add-product');
+if(product_form){
+  product_form.addEventListener('submit', postProduct);
+
+}
+
+
+function postProduct(e){
+  e.preventDefault();
+
+  let product_name = document.getElementById('product-name').value;
+  let product_price = document.getElementById('product-price').value;
+  let product_quantiry = document.getElementById('product-quantity').value;
+  let product_min_quantity = document.getElementById('product-min-quantity').value;
+  let product_cat = document.getElementById('cat-choice').value;
+
+  const data_product = {
+    "name": product_name,
+    "price": product_price,
+    "quantity": product_quantiry,
+    "min_quantity": product_min_quantity,
+    "category_id": product_cat
+  }
+
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/products', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, test/plain, */*',
+      'Content-type': 'application/json',
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Request-Method': '*',
+      "Authorization": access_token
+    },
+    body: JSON.stringify(data_product)
+  })
+  .then((res) => res.json())
+  // .then((data) => console.log(data))
+  .then((data) => {
+    let error_product = document.getElementById('error-product')
+    error_product.style.display = 'block';
+    error_product.style.color = 'red';
+    if(data.message == "Invalid product name"){
+      error_product.innerHTML= data.message;
+    }
+    if(data.message == "Invalid product price"){
+      error_product.innerHTML= data.message;
+    }
+    if(data.message == "Invalid product quantity"){
+      error_product.innerHTML= data.message;
+    }
+    if(data.message == "Invalid product minimum quantity"){ 
+      error_product.innerHTML= data.message;
+    }
+    if(data.message == "Invalid product category id"){ 
+      error_product.innerHTML= data.message;
+    }
+    if(data.message == `Product ${product_name} already exist`){
+      error_product.innerHTML= data.message;
+    }
+    if(data.message == `Product created successfully`){
+      error_product.style.color = 'green';
+      error_product.innerHTML= data.message;
+    }
+    if(data.msg == "Token has expired"){
+      error_product.innerHTML= 'Session has expired kindly login again'
+    }
+    
+  })
+  .catch((err) => console.log(err))
+}
+
+// END POST product**********************************************************************************
 
 
 // run showContainer function

@@ -88,14 +88,15 @@
 
         <!-- Product add form -->
         <div class="product-container">
-        <form action="">
+        <div><h4 id="error-product"></h4></div>
+        <form id="add-product" action="">
             <div class="left-row">
             <div class="row">
                 <div class="left">
                 <label for="pname">Product Name</label>
                 </div>
                 <div class="right">
-                <input type="text" name="pname" placeholder="Enter Product name.." required>
+                <input id="product-name" type="text" name="pname" placeholder="Enter Product name.." required>
                 </div>
             </div>
             <div class="row">
@@ -103,7 +104,7 @@
                     <label for="price">Price  <cite>  (ksh)</cite></label>
                     </div>
                     <div class="right">
-                    <input type="text" name="price" placeholder="Enter price.." required>
+                    <input id="product-price" type="text" name="price" placeholder="Enter price.." required>
                     </div>
             </div>
             </div>
@@ -114,7 +115,17 @@
                     <label for="quantity">Quantity</label>
                     </div>
                     <div class="right">
-                    <input type="text" name="quantity" placeholder="Enter quantity.." required>
+                    <input id="product-quantity" type="text" name="quantity" placeholder="Enter quantity.." 
+                    required>
+                    </div>
+            </div>
+            <div class="row">
+                    <div class="left">
+                    <label for="quantity">Min Quantity</label>
+                    </div>
+                    <div class="right">
+                    <input id="product-min-quantity" type="text" name="min-quantity" 
+                    placeholder="Enter minimum quantity.." required>
                     </div>
             </div>
             <div class="row">
@@ -127,7 +138,7 @@
             </div>
             </div>
             <button class="add-btn" type="submit">Add</button>
-            <button class="cancel-btn" type="submit">cancel</button>
+            <button class="cancel-btn">cancel</button>
         </form>
         </div>
 

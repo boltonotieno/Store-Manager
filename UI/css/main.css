@@ -674,7 +674,7 @@ i{
 }
 
 /* error message******************************** */
-#error-reg, #error-role, #error-category, #no-category, #no-users{
+#error-reg, #error-role, #error-category, #no-category, #no-users, #error-product{
     text-align: center;
     font-family:  "Lucida Console", Monaco, monospace;
     font-size: 15px;
