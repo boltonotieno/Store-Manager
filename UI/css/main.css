@@ -601,6 +601,30 @@ i{
     opacity: 0.9;
 }
 
+#category{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#category td, #category th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-size: 14px;
+}
+
+#category tr:nth-child(even){background-color: #f2f2f2;}
+
+#category tr:hover {background-color: #ddd;}
+
+#category th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4471B7;
+    color: white;
+}
+
 /* add category css */
 .add-category-container{
     background-color: #FFFFFF;
@@ -650,7 +674,7 @@ i{
 }
 
 /* error message******************************** */
-#error-reg, #error-role{
+#error-reg, #error-role, #error-category, #no-category, #no-users{
     text-align: center;
     font-family:  "Lucida Console", Monaco, monospace;
     font-size: 15px;

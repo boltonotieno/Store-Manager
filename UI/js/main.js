@@ -70,6 +70,9 @@ function showContainer(evt, sectionID) {
     
     //  get all users on load
      getUsers()
+
+    //  get all categories on load
+     getCategory()
  }
 
 // Get the whole modal
@@ -268,6 +271,13 @@ function getUsers(){
   .then((res) => res.json())
   // .then((data) => console.log(data))
   .then((data) => {
+    let no_users = document.getElementById('no-users')
+    if(data.message == 'No users'){
+      no_users.style.display = 'block';
+      no_users.innerHTML= data.message; 
+    }
+    else{
+    no_users.style.display = 'none';
     let all_users = `
                       <tr>
                       <th>ID</th>
@@ -282,7 +292,7 @@ function getUsers(){
     data['Users'].forEach(function(user){
       all_users +=  `
         <tr>
-            <td id="user-id">${user.id}</td>
+            <td>${user.id}</td>
             <td>${user.name}</td>
             <td>${user.username}</td>
             <td>${user.email}</td>
@@ -298,6 +308,8 @@ function getUsers(){
     });
     document.getElementById('users').innerHTML = all_users;
     document.getElementById('edit-roleChoice').innerText
+
+    }
   })
   .catch((err) => console.log(err))
 }
@@ -311,6 +323,8 @@ function getUsers(){
 function close_roleModal(){
   var edit_role_modal = document.getElementById('edit_roleModal');
   edit_role_modal.style.display = "none";
+  let error_role = document.getElementById('error-role')
+  error_role.style.display = 'none';
   getUsers()
 }
 
@@ -318,6 +332,8 @@ function close_roleModal(){
 window.onclick = function(event) {
   if (event.target == edit_role_modal) {
       edit_role_modal.style.display = "none";
+      let error_role = document.getElementById('error-role')
+      error_role.style.display = 'none';
       getUsers()
   }
 }
@@ -333,14 +349,13 @@ function modifyRole(){
       user_name = this.cells[1].innerHTML;
       user_username = this.cells[2].innerHTML;
       document.getElementById('edit-roleChoice').value = this.cells[5].innerHTML;
+
+      if(user_id){
+        // Get the whole edit role modal
+        var edit_role_modal = document.getElementById('edit_roleModal');
+        edit_role_modal.style.display = "block"
+        }
     }
-  }
-
-  if(user_id){
-      // Get the whole edit role modal
-      var edit_role_modal = document.getElementById('edit_roleModal');
-      edit_role_modal.style.display = "block"
-
   }
 
   var role_form = document.getElementById('role-form');
@@ -370,6 +385,7 @@ function modifyRole(){
     // .then((data) => console.log(data))
     .then((data) => {
           let error_role = document.getElementById('error-role')
+          error_role.style.display = 'block';
           if(data.message == `User ${user_username} is already an attendant`){
           error_role.style.color = 'red';
           error_role.innerHTML= data.message;      
@@ -387,8 +403,8 @@ function modifyRole(){
             error_role.innerHTML= data.message;      
             }
           if(data.msg == "Token has expired"){
-            error_reg.style.color = 'red';
-            error_reg.innerHTML= 'Session has expired kindly login again'
+            error_role.style.color = 'red';
+            error_role.innerHTML= 'Session has expired kindly login again'
           }
     })
     .catch((err) => console.log(err))
@@ -401,6 +417,248 @@ if(view_users_role){
   view_users_role.addEventListener('click', getUsers);
 }
 // END PUT user role ************************************************************************************
+
+
+// POST new category ************************************************************************************
+
+var category_form = document.getElementById('category-form');
+if(category_form){
+category_form.addEventListener('submit', postCategory);
+}
+
+function postCategory(e){
+  e.preventDefault();
+
+  let cat_name = document.getElementById('category-name').value
+
+  fetch(`https://my-store-manager-api.herokuapp.com/api/v2/category`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, test/plain, */*',
+      'Content-type': 'application/json',
+      "Authorization": access_token
+    },
+    body: JSON.stringify({name:cat_name})
+  })
+  .then((res) => res.json())
+  // .then((data) => console.log(data))
+  .then((data) => {
+    let error_category = document.getElementById('error-category')
+    if(data.message == `Category ${cat_name} already exist`){
+    error_category.style.color = 'red';
+    error_category.innerHTML= data.message;      
+    }
+    if(data.message == `Invalid category name ${cat_name}`){
+      error_category.style.color = 'red';
+      error_category.innerHTML= data.message;      
+      }
+    if(data.message == `Category created successfully`){
+      error_category.style.color = 'green';
+      error_category.innerHTML= data.message;      
+      }
+
+    if(data.msg == "Token has expired"){
+      error_category.style.color = 'red';
+      error_category.innerHTML= 'Session has expired kindly login again'
+    }
+  })
+  .catch((err) => console.log(err))
+}
+
+// End post new category ********************************************************************************
+
+
+// GET all categories ***********************************************************************************
+var view_category = document.getElementById('back-category-view');
+if(view_category){
+  view_category.addEventListener('click', getCategory);
+}
+
+function getCategory(){
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/category', {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Request-Method': '*',
+      "Authorization": access_token
+    }
+  })
+  .then((res) => res.json())
+  // .then((data) => console.log(data))
+  .then((data) => {
+    let no_category = document.getElementById('no-category')
+    if(data.message == 'No categories'){
+      no_category.style.display = 'block';
+      no_category.style.color = 'red';
+      no_category.innerHTML= data.message; 
+    }
+    else{
+    no_category.style.display = 'none';
+          let all_categories = `
+                      <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Action</th>
+                      </tr>
+                      `;
+    data['Categories'].forEach(function(category){
+      all_categories +=  `
+        <tr>
+            <td>${category.id}</td>
+            <td>${category.name}</td>
+            <td>
+            <div class="sales-modify-btn">
+            <button id="modify-cat-btn" onclick="modifyCategory()">edit</button>
+            <button id="delete-cat-btn" onclick="deleteCategory()">delete</button>
+            </div>
+            </td>
+        </td>
+        </tr>
+      `;
+    });
+    document.getElementById('category').innerHTML = all_categories;
+    }
+  })
+  .catch((err) => console.log(err))
+}
+
+// END GET all categories *******************************************************************************
+
+
+// DELETE a category  ************************************************************************************
+function deleteCategory(){
+  var table_cat = document.getElementById("category"), index;
+  for ( var i = 0; i < table_cat.rows.length; i++){
+    table_cat.rows[i].onclick = function(){
+      index = this.rowIndex;
+      cat_id = this.cells[0].innerHTML;
+
+      fetch(`https://my-store-manager-api.herokuapp.com/api/v2/category/${cat_id}`, {
+        method: 'DELETE',
+        headers: {
+          'Access-Control-Allow-Origin':'*',
+          'Access-Control-Request-Method': '*',
+          "Authorization": access_token
+        }
+      })
+      .then((res) => res.json())
+      // .then((data) => console.log(data))
+      .then((data) => {
+        let no_category = document.getElementById('no-category')
+        if(data.message == `Category id ${cat_id} not Found`){
+          no_category.style.display = 'block';
+          no_category.style.color = 'red';
+          no_category.innerHTML= data.message; 
+        }
+        if(data.message == `Category id ${cat_id} successfuly deleted`){
+          for(var i = table_cat.rows.length - 1; i > -1; i--){
+              table_cat.deleteRow(i);
+              }
+          no_category.style.display = 'block';
+          no_category.style.color = 'green';
+          no_category.innerHTML= data.message;
+          getCategory()
+        }
+      })
+      .catch((err) => console.log(err))
+    }
+  }
+}
+
+// END DELETE a category ********************************************************************************
+
+// PUT category *****************************************************************************************
+// close edit category modal
+function close_catModal(){
+  var edit_cat_modal = document.getElementById('edit_catModal');
+  edit_cat_modal.style.display = "none";
+  let error_cat = document.getElementById('error-cat')
+  error_cat.style.display = 'none';
+  getCategory()
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  var edit_cat_modal = document.getElementById('edit_catModal');
+  if (event.target == edit_cat_modal) {
+      edit_cat_modal.style.display = "none";
+      let error_cat = document.getElementById('error-cat')
+      error_cat.style.display = 'none';
+      getCategory()
+  }
+}
+
+function modifyCategory(){
+  var table_cat = document.getElementById("category"), index;
+  for ( var i = 0; i < table_cat.rows.length; i++){
+    table_cat.rows[i].onclick = function(){
+      index = this.rowIndex;
+      cat_id = this.cells[0].innerHTML;
+      document.getElementById('edit-catID').value = this.cells[0].innerHTML;
+      document.getElementById('edit-catName').value = this.cells[1].innerHTML;
+
+      if(cat_id){
+        // Get the whole edit role modal
+        var edit_cat_modal = document.getElementById('edit_catModal');
+        edit_cat_modal.style.display = "block"
+        }
+    }
+  } 
+}
+
+var cat_form = document.getElementById('cat-form');
+  if(cat_form){
+  cat_form.addEventListener('submit', Category);
+  }
+
+  function Category(e){
+    e.preventDefault();
+
+    let cat_name = document.getElementById('edit-catName').value;
+    let cat_id = document.getElementById('edit-catID').value;
+
+    fetch(`https://my-store-manager-api.herokuapp.com/api/v2/category/${cat_id}`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, test/plain, */*',
+        'Content-type': 'application/json',
+        "Authorization": access_token
+      },
+      body: JSON.stringify({name:cat_name})
+    })
+    .then((res) => res.json())
+    // .then((data) => console.log(data))
+    .then((data) => {
+          let error_cat = document.getElementById('error-cat')
+          error_cat.style.display = 'block';
+          error_cat.style.color = 'red';
+          if(data.message == `Category id ${cat_id} is invalid`){
+          error_cat.innerHTML= data.message;      
+          }
+          if(data.message == `Invalid category name ${cat_name}`){
+            error_cat.innerHTML= data.message;      
+            }
+          if(data.message == `Category ${cat_name} already exist`){
+          error_cat.innerHTML= data.message;      
+          }
+          if(data.message == `Category id ${cat_id} successfuly modified`){
+            error_cat.style.color = 'green';
+            error_cat.innerHTML= data.message;      
+            }
+          if(data.msg == "Token has expired"){
+            error_cat.innerHTML= 'Session has expired kindly login again'
+          }
+    })
+    .catch((err) => console.log(err))
+  }
+
+// editcat-modal cancel-btn
+var view_cat = document.getElementById('view-cat');
+if(view_cat){
+  view_cat.addEventListener('click', getCategory);
+}
+
+// END PUT category**************************************************************************************
 
 // run showContainer function
 showContainer()

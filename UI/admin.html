@@ -590,6 +590,7 @@
             <button class="add-btn" onclick="showContainer(event, 'add-attendant')">Add Attendant</button>
     
         <!-- Attendant view table -->
+            <div><h4 id="no-users"></h4></div>
             <table id="users"></table>           
          </div>
         
@@ -646,32 +647,9 @@
                 <button class="add-btn" onclick="showContainer(event, 'add-category')">Add Category</button>
         
             <!-- Category view table -->
-                <table id="sales">
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Action</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Beer</td>
-                        <td>
-                            <div class="sales-modify-btn">
-                            <button class="attendant-delete">delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Wine</td>
-                        <td>
-                            <div class="-sales-modify-btn">
-                                <button class="attendant-delete">delete</button>
-                                </div>
-                            </td>
-                    </tr>
-                </table>        
-                
+                <div><h4 id="no-category"></h4></div>
+                <table id="category"></table>        
+
              </div>   
         </div>
 
@@ -684,22 +662,55 @@
                 <div class="add-category-container">
         
                     <!-- category add form -->
-                <form action="">
+                <div><h4 id="error-category"></h4></div>
+                <form id="category-form" action="">
                     <div class="row">
                         <div class="left">
                         <label for="name">Name</label>
                         </div>
                         <div class="right">
-                        <input type="text" name="name" placeholder="Enter category name.." required>
+                        <input id="category-name" type="text" name="name" placeholder="Enter category name.." required>
                         </div>
                     </div>
                     <button class="add-btn" type="submit">Add</button>
-                    <button class="back-btn" onclick="showContainer(event, 'view-category')">Back</button>
+                    <button id="back-category-view" class="back-btn" onclick="showContainer(event, 'view-category')">Back</button>
                 </form>
-        
+                
                 </div>
             
             </div>
+
+            <!-- Edit category Modal -->
+            <div id="edit_catModal" class="editmodal">
+                    <!-- Edit Modal content -->
+                    <div class="editmodal-content">
+                        <span onclick="close_catModal()" id="close-cat" class="close">&times;</span>
+                        <form id="cat-form" action="">
+                            <legend><strong>Edit Category Name:</strong></legend>
+                            <div><h3 id="error-cat"></h3></div>
+                            <div class="left-row">
+                            <div class="row">
+                                <div class="left">
+                                <label for="cat-id">ID</label>
+                                </div>
+                                <div class="right">
+                                <input id="edit-catID" type="text" name="id" readonly>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="left">
+                                <label for="name">Name</label>
+                                </div>
+                                <div class="right">
+                                <input id="edit-catName" type="text" name="name" required>
+                                </div>
+                            </div>
+                            </div>
+                            <button onclick="Category()" class="edit-btn" type="submit">Save</button>
+                            <button id="view-cat" onclick="close_catModal()" class="cancel-btn">cancel</button>
+                        </form>
+                    </div>
+                </div>
 
 
 
