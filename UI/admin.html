@@ -680,6 +680,38 @@
             
             </div>
 
+            <!-- Edit category Modal -->
+            <div id="edit_catModal" class="editmodal">
+                    <!-- Edit Modal content -->
+                    <div class="editmodal-content">
+                        <span onclick="close_catModal()" id="close-cat" class="close">&times;</span>
+                        <form id="cat-form" action="">
+                            <legend><strong>Edit Category Name:</strong></legend>
+                            <div><h3 id="error-cat"></h3></div>
+                            <div class="left-row">
+                            <div class="row">
+                                <div class="left">
+                                <label for="cat-id">ID</label>
+                                </div>
+                                <div class="right">
+                                <input id="edit-catID" type="text" name="id" readonly>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="left">
+                                <label for="name">Name</label>
+                                </div>
+                                <div class="right">
+                                <input id="edit-catName" type="text" name="name" required>
+                                </div>
+                            </div>
+                            </div>
+                            <button onclick="Category()" class="edit-btn" type="submit">Save</button>
+                            <button id="view-cat" onclick="close_catModal()" class="cancel-btn">cancel</button>
+                        </form>
+                    </div>
+                </div>
+
 
 
 <script src="js/main.js"></script>

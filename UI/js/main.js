@@ -403,8 +403,8 @@ function modifyRole(){
             error_role.innerHTML= data.message;      
             }
           if(data.msg == "Token has expired"){
-            error_reg.style.color = 'red';
-            error_reg.innerHTML= 'Session has expired kindly login again'
+            error_role.style.color = 'red';
+            error_role.innerHTML= 'Session has expired kindly login again'
           }
     })
     .catch((err) => console.log(err))
@@ -508,6 +508,7 @@ function getCategory(){
             <td>${category.name}</td>
             <td>
             <div class="sales-modify-btn">
+            <button id="modify-cat-btn" onclick="modifyCategory()">edit</button>
             <button id="delete-cat-btn" onclick="deleteCategory()">delete</button>
             </div>
             </td>
@@ -566,6 +567,98 @@ function deleteCategory(){
 
 // END DELETE a category ********************************************************************************
 
+// PUT category *****************************************************************************************
+// close edit category modal
+function close_catModal(){
+  var edit_cat_modal = document.getElementById('edit_catModal');
+  edit_cat_modal.style.display = "none";
+  let error_cat = document.getElementById('error-cat')
+  error_cat.style.display = 'none';
+  getCategory()
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  var edit_cat_modal = document.getElementById('edit_catModal');
+  if (event.target == edit_cat_modal) {
+      edit_cat_modal.style.display = "none";
+      let error_cat = document.getElementById('error-cat')
+      error_cat.style.display = 'none';
+      getCategory()
+  }
+}
+
+function modifyCategory(){
+  var table_cat = document.getElementById("category"), index;
+  for ( var i = 0; i < table_cat.rows.length; i++){
+    table_cat.rows[i].onclick = function(){
+      index = this.rowIndex;
+      cat_id = this.cells[0].innerHTML;
+      document.getElementById('edit-catID').value = this.cells[0].innerHTML;
+      document.getElementById('edit-catName').value = this.cells[1].innerHTML;
+
+      if(cat_id){
+        // Get the whole edit role modal
+        var edit_cat_modal = document.getElementById('edit_catModal');
+        edit_cat_modal.style.display = "block"
+        }
+    }
+  } 
+}
+
+var cat_form = document.getElementById('cat-form');
+  if(cat_form){
+  cat_form.addEventListener('submit', Category);
+  }
+
+  function Category(e){
+    e.preventDefault();
+
+    let cat_name = document.getElementById('edit-catName').value;
+    let cat_id = document.getElementById('edit-catID').value;
+
+    fetch(`https://my-store-manager-api.herokuapp.com/api/v2/category/${cat_id}`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, test/plain, */*',
+        'Content-type': 'application/json',
+        "Authorization": access_token
+      },
+      body: JSON.stringify({name:cat_name})
+    })
+    .then((res) => res.json())
+    // .then((data) => console.log(data))
+    .then((data) => {
+          let error_cat = document.getElementById('error-cat')
+          error_cat.style.display = 'block';
+          error_cat.style.color = 'red';
+          if(data.message == `Category id ${cat_id} is invalid`){
+          error_cat.innerHTML= data.message;      
+          }
+          if(data.message == `Invalid category name ${cat_name}`){
+            error_cat.innerHTML= data.message;      
+            }
+          if(data.message == `Category ${cat_name} already exist`){
+          error_cat.innerHTML= data.message;      
+          }
+          if(data.message == `Category id ${cat_id} successfuly modified`){
+            error_cat.style.color = 'green';
+            error_cat.innerHTML= data.message;      
+            }
+          if(data.msg == "Token has expired"){
+            error_cat.innerHTML= 'Session has expired kindly login again'
+          }
+    })
+    .catch((err) => console.log(err))
+  }
+
+// editcat-modal cancel-btn
+var view_cat = document.getElementById('view-cat');
+if(view_cat){
+  view_cat.addEventListener('click', getCategory);
+}
+
+// END PUT category**************************************************************************************
 
 // run showContainer function
 showContainer()
