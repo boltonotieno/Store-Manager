@@ -63,6 +63,7 @@ function showContainer(evt, sectionID) {
     } 
 }
 
+// Windows on load ***************************************************************
  function clickFunction() {
 
      // Get the element with id="default" and click on it
@@ -73,10 +74,17 @@ function showContainer(evt, sectionID) {
 
     //  get all categories on load
      getCategory()
+
+    //  set all categories on load to product form
+    setCategory()
+
+    //  get all products on load 
+    getProducts()
  }
+// Windows on load ***************************************************************
 
 // Get the whole modal
-var modal = document.getElementById('editModal');
+// var modal = document.getElementById('editModal');
 
 // Get the whole edit role modal
 var edit_role_modal = document.getElementById('edit_roleModal');
@@ -104,12 +112,12 @@ if(edit_role_btn){
   }
 }
 
-// When the user clicks on <span> (x), close the modal
-if(span){
-    span.onclick = function() {
-        modal.style.display = "none";
-  }
-}
+// // When the user clicks on <span> (x), close the modal
+// if(span){
+//     span.onclick = function() {
+//         modal.style.display = "none";
+//   }
+// }
 
 
 // When the user clicks anywhere outside of the modal, close it
@@ -237,6 +245,7 @@ function Registration(e){
     if(data.message == "User created successfully"){
       error_reg.style.color = 'green';
       error_reg.innerHTML= data.message;
+      getUsers()
     }
     if(data.msg == "Token has expired"){
       error_reg.style.color = 'red';
@@ -454,7 +463,8 @@ function postCategory(e){
       }
     if(data.message == `Category created successfully`){
       error_category.style.color = 'green';
-      error_category.innerHTML= data.message;      
+      error_category.innerHTML= data.message;
+      setCategory()   
       }
 
     if(data.msg == "Token has expired"){
@@ -550,6 +560,11 @@ function deleteCategory(){
           no_category.style.color = 'red';
           no_category.innerHTML= data.message; 
         }
+        if(data.message == `There exist a product with category_id ${cat_id}`){
+          no_category.style.display = 'block';
+          no_category.style.color = 'red';
+          no_category.innerHTML= data.message; 
+        }
         if(data.message == `Category id ${cat_id} successfuly deleted`){
           for(var i = table_cat.rows.length - 1; i > -1; i--){
               table_cat.deleteRow(i);
@@ -558,7 +573,12 @@ function deleteCategory(){
           no_category.style.color = 'green';
           no_category.innerHTML= data.message;
           getCategory()
+          setCategory()
         }
+        if(data.msg == "Token has expired"){
+          no_category.innerHTML= 'Session has expired kindly login again'
+        }
+        
       })
       .catch((err) => console.log(err))
     }
@@ -643,7 +663,8 @@ var cat_form = document.getElementById('cat-form');
           }
           if(data.message == `Category id ${cat_id} successfuly modified`){
             error_cat.style.color = 'green';
-            error_cat.innerHTML= data.message;      
+            error_cat.innerHTML= data.message;
+            setCategory()
             }
           if(data.msg == "Token has expired"){
             error_cat.innerHTML= 'Session has expired kindly login again'
@@ -659,6 +680,346 @@ if(view_cat){
 }
 
 // END PUT category**************************************************************************************
+
+// GET all categories into POST product form ************************************************************
+
+function setCategory(){
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/category', {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Request-Method': '*',
+      "Authorization": access_token
+    }
+  })
+  .then((res) => res.json())
+  // .then((data) => console.log(data))
+  .then((data) => {
+    let all_categories = `<option value="choice">Select Category:</option> `;
+    if(data.message == 'No categories'){
+
+      document.getElementById('cat-choice').innerHTML = all_categories;
+    }
+    else{
+    data['Categories'].forEach(function(category){
+      all_categories +=  `
+                        <option value="${category.id}">${category.name}</option>
+                `;
+              });
+      document.getElementById('cat-choice').innerHTML = all_categories;
+    }
+  })
+  .catch((err) => console.log(err))
+}
+
+
+// END GET category into POST product form **************************************************************
+
+
+
+// POST product ****************************************************************************************
+var product_form = document.getElementById('add-product');
+if(product_form){
+  product_form.addEventListener('submit', postProduct);
+
+}
+
+function clear_productForm(){
+  product_form.reset();
+}
+
+function postProduct(e){
+  e.preventDefault();
+
+  let product_name = document.getElementById('product-name').value;
+  let product_price = document.getElementById('product-price').value;
+  let product_quantiry = document.getElementById('product-quantity').value;
+  let product_min_quantity = document.getElementById('product-min-quantity').value;
+  let product_cat = document.getElementById('cat-choice').value;
+
+  const data_product = {
+    "name": product_name,
+    "price": product_price,
+    "quantity": product_quantiry,
+    "min_quantity": product_min_quantity,
+    "category_id": product_cat
+  }
+
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/products', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, test/plain, */*',
+      'Content-type': 'application/json',
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Request-Method': '*',
+      "Authorization": access_token
+    },
+    body: JSON.stringify(data_product)
+  })
+  .then((res) => res.json())
+  // .then((data) => console.log(data))
+  .then((data) => {
+    let error_product = document.getElementById('error-product')
+    error_product.style.display = 'block';
+    error_product.style.color = 'red';
+    if(data.message == "Invalid product name"){
+      error_product.innerHTML= data.message;
+    }
+    if(data.message == "Invalid product price"){
+      error_product.innerHTML= data.message;
+    }
+    if(data.message == "Invalid product quantity"){
+      error_product.innerHTML= data.message;
+    }
+    if(data.message == "Invalid product minimum quantity"){ 
+      error_product.innerHTML= data.message;
+    }
+    if(data.message == "Invalid product category id"){ 
+      error_product.innerHTML= data.message;
+    }
+    if(data.message == `Product ${product_name} already exist`){
+      error_product.innerHTML= data.message;
+    }
+    if(data.message == `Product created successfully`){
+      error_product.style.color = 'green';
+      error_product.innerHTML= data.message;
+      getProducts()
+    }
+    if(data.msg == "Token has expired"){
+      error_product.innerHTML= 'Session has expired kindly login again'
+    }
+    
+  })
+  .catch((err) => console.log(err))
+}
+
+// END POST product**********************************************************************************
+
+
+// GET Products **************************************************************************************
+var view_users = document.getElementById('view-users');
+if(view_users){
+  view_users.addEventListener('click', getUsers);
+}
+
+
+function getProducts(){
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/products', {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Request-Method': '*',
+      "Authorization": access_token
+    }
+  })
+  .then((res) => res.json())
+  // .then((data) => console.log(data))
+  .then((data) => {
+    let no_products = document.getElementById('no-products')
+    if(data.message == 'No products'){
+      no_products.style.display = 'block';
+      no_products.innerHTML= data.message; 
+    }
+    else{
+    no_products.style.display = 'none';
+    let all_products = `
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category ID</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Min quantity</th>
+                <th>Action</th>
+                      `;
+    data['Products'].forEach(function(product){
+      all_products +=  `
+        <tr>
+            <td>${product.id}</td>
+            <td>${product.name}</td>
+            <td>${product.category_id}</td>
+            <td>${product.price}</td>
+            <td>${product.quantity}</td>
+            <td>${product.min_quantity}</td>
+            <td>
+                <div class="modify-btn">
+                <button id="edit-btn" class="edit-btn" onclick="modifyProduct()">modify</button>
+                <button class="delete-btn" onclick="deleteProduct()">delete</button>
+                </div>
+            </td>
+        </tr>
+      `;
+    });
+    document.getElementById('products').innerHTML = all_products;
+    }
+  })
+  .catch((err) => console.log(err))
+}
+
+// END GET Products  **********************************************************************************
+
+
+// DELETE a product  ************************************************************************************
+function deleteProduct(){
+  var table_product = document.getElementById("products");
+  for ( var i = 0; i < table_product.rows.length; i++){
+    table_product.rows[i].onclick = function(){
+
+      product_id = this.cells[0].innerHTML;
+
+      fetch(`https://my-store-manager-api.herokuapp.com/api/v2/products/${product_id}`, {
+        method: 'DELETE',
+        headers: {
+          'Access-Control-Allow-Origin':'*',
+          'Access-Control-Request-Method': '*',
+          "Authorization": access_token
+        }
+      })
+      .then((res) => res.json())
+      // .then((data) => console.log(data))
+      .then((data) => {
+        let no_products = document.getElementById('no-products')
+        no_products.style.color = 'red';
+        no_products.style.display = 'block'
+        if(data.message == `Product id ${product_id} is invalid`){
+          no_products.innerHTML= data.message; 
+        }
+        if(data.message == `Product id ${product_id} not found`){
+          no_products.innerHTML= data.message; 
+        }
+        if(data.message == `Product id ${product_id} successfuly deleted`){
+          for(var i = table_product.rows.length - 1; i > -1; i--){
+              table_product.deleteRow(i);
+              }
+          no_products.style.color = 'green';
+          no_products.innerHTML= data.message;
+          getProducts()
+        }
+        if(data.msg == "Token has expired"){
+          no_products.innerHTML= 'Session has expired kindly login again'
+        }
+        
+      })
+      .catch((err) => console.log(err))
+    }
+  }
+}
+
+// END DELETE a product ********************************************************************************
+
+
+
+// PUT product *****************************************************************************************
+// close edit product modal
+function close_productModal(){
+  var edit_product_modal = document.getElementById('edit_productModal');
+  edit_product_modal.style.display = "none";
+  let edit_product_msg = document.getElementById('edit-product-msg')
+  edit_product_msg.style.display = 'none';
+
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  var edit_product_modal = document.getElementById('edit_productModal');
+  let edit_product_msg = document.getElementById('edit-product-msg')
+  if (event.target == edit_product_modal) {
+      edit_product_modal.style.display = "none";
+      edit_product_msg.style.display = 'none';
+  }
+}
+
+function modifyProduct(){
+  var table_product = document.getElementById("products");
+  for ( var i = 0; i < table_product.rows.length; i++){
+    table_product.rows[i].onclick = function(){
+      product_id = this.cells[0].innerHTML;
+      document.getElementById('edit-productID').value = this.cells[0].innerHTML;
+      document.getElementById('edit-productName').value = this.cells[1].innerHTML;
+      document.getElementById('edit-productCategory').value = this.cells[2].innerHTML;
+      document.getElementById('edit-productPrice').value = this.cells[3].innerHTML;
+      document.getElementById('edit-productQuantity').value = this.cells[4].innerHTML;
+      document.getElementById('edit-productMin-quantity').value = this.cells[5].innerHTML;
+
+      if(product_id){
+        // Get the whole edit product modal
+        var edit_product_modal = document.getElementById('edit_productModal');
+        edit_product_modal.style.display = "block"
+        }
+    }
+  } 
+}
+
+var prod_form = document.getElementById('product-form');
+  if(prod_form){
+  prod_form.addEventListener('submit', Product);
+  }
+
+  function Product(e){
+    e.preventDefault();
+
+    let prod_id = document.getElementById('edit-productID').value;
+    let prod_name = document.getElementById('edit-productName').value;
+    let prod_price = document.getElementById('edit-productPrice').value;
+    let prod_quantiry = document.getElementById('edit-productQuantity').value;
+    let prod_min_quantity = document.getElementById('edit-productMin-quantity').value;
+    let prod_cat = document.getElementById('edit-productCategory').value;
+  
+    const data_prod = {
+      "name": prod_name,
+      "price": prod_price,
+      "quantity": prod_quantiry,
+      "min_quantity": prod_min_quantity,
+      "category_id": prod_cat
+    }
+
+    fetch(`https://my-store-manager-api.herokuapp.com/api/v2/products/${prod_id}`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, test/plain, */*',
+        'Content-type': 'application/json',
+        "Authorization": access_token
+      },
+      body: JSON.stringify(data_prod)
+    })
+    .then((res) => res.json())
+    // .then((data) => console.log(data))
+    .then((data) => {
+          let edit_product_msg = document.getElementById('edit-product-msg')
+          edit_product_msg.style.display = 'block';
+          edit_product_msg.style.color = 'red';
+          if(data.message == "Invalid product name"){
+            edit_product_msg.innerHTML= data.message;
+          }
+          if(data.message == "Invalid product price"){
+            edit_product_msg.innerHTML= data.message;
+          }
+          if(data.message == "Invalid product quantity"){
+            edit_product_msg.innerHTML= data.message;
+          }
+          if(data.message == "Invalid product minimum quantity"){ 
+            edit_product_msg.innerHTML= data.message;
+          }
+          if(data.message == "Invalid product category id"){ 
+            edit_product_msg.innerHTML= data.message;
+          }
+          if(data.message == `Category id ${prod_cat} does not exist`){ 
+            edit_product_msg.innerHTML= data.message;
+          }
+          if(data.message == `Product id ${prod_id} successfuly modified`){
+            edit_product_msg.style.color = 'green';
+            edit_product_msg.innerHTML= data.message;
+            getProducts()
+          }
+          if(data.msg == "Token has expired"){
+            edit_product_msg.innerHTML= 'Session has expired kindly login again'
+          }
+    })
+    .catch((err) => console.log(err))
+  }
+
+// END PUT category**************************************************************************************
+
+
 
 // run showContainer function
 showContainer()
