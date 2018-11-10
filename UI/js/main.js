@@ -575,6 +575,10 @@ function deleteCategory(){
           getCategory()
           setCategory()
         }
+        if(data.msg == "Token has expired"){
+          no_category.innerHTML= 'Session has expired kindly login again'
+        }
+        
       })
       .catch((err) => console.log(err))
     }
@@ -839,7 +843,7 @@ function getProducts(){
             <td>
                 <div class="modify-btn">
                 <button id="edit-btn" class="edit-btn">modify</button>
-                <button class="delete-btn">delete</button>
+                <button class="delete-btn" onclick="deleteProduct()">delete</button>
                 </div>
             </td>
         </tr>
@@ -853,6 +857,54 @@ function getProducts(){
 
 // END GET Products  **********************************************************************************
 
+
+// DELETE a product  ************************************************************************************
+function deleteProduct(){
+  var table_product = document.getElementById("products");
+  for ( var i = 0; i < table_product.rows.length; i++){
+    table_product.rows[i].onclick = function(){
+
+      product_id = this.cells[0].innerHTML;
+
+      fetch(`https://my-store-manager-api.herokuapp.com/api/v2/products/${product_id}`, {
+        method: 'DELETE',
+        headers: {
+          'Access-Control-Allow-Origin':'*',
+          'Access-Control-Request-Method': '*',
+          "Authorization": access_token
+        }
+      })
+      .then((res) => res.json())
+      // .then((data) => console.log(data))
+      .then((data) => {
+        let no_products = document.getElementById('no-products')
+        no_products.style.color = 'red';
+        no_products.style.display = 'block'
+        if(data.message == `Product id ${product_id} is invalid`){
+          no_products.innerHTML= data.message; 
+        }
+        if(data.message == `Product id ${product_id} not found`){
+          no_products.innerHTML= data.message; 
+        }
+        if(data.message == `Product id ${product_id} successfuly deleted`){
+          for(var i = table_product.rows.length - 1; i > -1; i--){
+              table_product.deleteRow(i);
+              }
+          no_products.style.color = 'green';
+          no_products.innerHTML= data.message;
+          getProducts()
+        }
+        if(data.msg == "Token has expired"){
+          no_products.innerHTML= 'Session has expired kindly login again'
+        }
+        
+      })
+      .catch((err) => console.log(err))
+    }
+  }
+}
+
+// END DELETE a product ********************************************************************************
 
 // run showContainer function
 showContainer()
