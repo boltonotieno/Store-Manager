@@ -323,6 +323,8 @@ function getUsers(){
 function close_roleModal(){
   var edit_role_modal = document.getElementById('edit_roleModal');
   edit_role_modal.style.display = "none";
+  let error_role = document.getElementById('error-role')
+  error_role.style.display = 'none';
   getUsers()
 }
 
@@ -330,6 +332,8 @@ function close_roleModal(){
 window.onclick = function(event) {
   if (event.target == edit_role_modal) {
       edit_role_modal.style.display = "none";
+      let error_role = document.getElementById('error-role')
+      error_role.style.display = 'none';
       getUsers()
   }
 }
@@ -345,14 +349,13 @@ function modifyRole(){
       user_name = this.cells[1].innerHTML;
       user_username = this.cells[2].innerHTML;
       document.getElementById('edit-roleChoice').value = this.cells[5].innerHTML;
+
+      if(user_id){
+        // Get the whole edit role modal
+        var edit_role_modal = document.getElementById('edit_roleModal');
+        edit_role_modal.style.display = "block"
+        }
     }
-  }
-
-  if(user_id){
-      // Get the whole edit role modal
-      var edit_role_modal = document.getElementById('edit_roleModal');
-      edit_role_modal.style.display = "block"
-
   }
 
   var role_form = document.getElementById('role-form');
@@ -382,6 +385,7 @@ function modifyRole(){
     // .then((data) => console.log(data))
     .then((data) => {
           let error_role = document.getElementById('error-role')
+          error_role.style.display = 'block';
           if(data.message == `User ${user_username} is already an attendant`){
           error_role.style.color = 'red';
           error_role.innerHTML= data.message;      
@@ -485,6 +489,7 @@ function getCategory(){
     let no_category = document.getElementById('no-category')
     if(data.message == 'No categories'){
       no_category.style.display = 'block';
+      no_category.style.color = 'red';
       no_category.innerHTML= data.message; 
     }
     else{
@@ -503,8 +508,9 @@ function getCategory(){
             <td>${category.name}</td>
             <td>
             <div class="sales-modify-btn">
-            <button>delete</button>
+            <button id="delete-cat-btn" onclick="deleteCategory()">delete</button>
             </div>
+            </td>
         </td>
         </tr>
       `;
@@ -516,6 +522,50 @@ function getCategory(){
 }
 
 // END GET all categories *******************************************************************************
+
+
+// DELETE a category  ************************************************************************************
+function deleteCategory(){
+  var table_cat = document.getElementById("category"), index;
+  for ( var i = 0; i < table_cat.rows.length; i++){
+    table_cat.rows[i].onclick = function(){
+      index = this.rowIndex;
+      cat_id = this.cells[0].innerHTML;
+
+      fetch(`https://my-store-manager-api.herokuapp.com/api/v2/category/${cat_id}`, {
+        method: 'DELETE',
+        headers: {
+          'Access-Control-Allow-Origin':'*',
+          'Access-Control-Request-Method': '*',
+          "Authorization": access_token
+        }
+      })
+      .then((res) => res.json())
+      // .then((data) => console.log(data))
+      .then((data) => {
+        let no_category = document.getElementById('no-category')
+        if(data.message == `Category id ${cat_id} not Found`){
+          no_category.style.display = 'block';
+          no_category.style.color = 'red';
+          no_category.innerHTML= data.message; 
+        }
+        if(data.message == `Category id ${cat_id} successfuly deleted`){
+          for(var i = table_cat.rows.length - 1; i > -1; i--){
+              table_cat.deleteRow(i);
+              }
+          no_category.style.display = 'block';
+          no_category.style.color = 'green';
+          no_category.innerHTML= data.message;
+          getCategory()
+        }
+      })
+      .catch((err) => console.log(err))
+    }
+  }
+}
+
+// END DELETE a category ********************************************************************************
+
 
 // run showContainer function
 showContainer()

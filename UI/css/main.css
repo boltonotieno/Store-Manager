@@ -607,7 +607,7 @@ i{
     width: 100%;
 }
 
-#category td, #users th {
+#category td, #category th {
     border: 1px solid #ddd;
     padding: 8px;
     font-size: 14px;
