@@ -73,6 +73,9 @@ function showContainer(evt, sectionID) {
 
     //  get all categories on load
      getCategory()
+
+    //  set all categories on load to product form
+    setCategory()
  }
 
 // Get the whole modal
@@ -237,6 +240,7 @@ function Registration(e){
     if(data.message == "User created successfully"){
       error_reg.style.color = 'green';
       error_reg.innerHTML= data.message;
+      getUsers()
     }
     if(data.msg == "Token has expired"){
       error_reg.style.color = 'red';
@@ -454,7 +458,8 @@ function postCategory(e){
       }
     if(data.message == `Category created successfully`){
       error_category.style.color = 'green';
-      error_category.innerHTML= data.message;      
+      error_category.innerHTML= data.message;
+      setCategory()   
       }
 
     if(data.msg == "Token has expired"){
@@ -558,6 +563,7 @@ function deleteCategory(){
           no_category.style.color = 'green';
           no_category.innerHTML= data.message;
           getCategory()
+          setCategory()
         }
       })
       .catch((err) => console.log(err))
@@ -643,7 +649,8 @@ var cat_form = document.getElementById('cat-form');
           }
           if(data.message == `Category id ${cat_id} successfuly modified`){
             error_cat.style.color = 'green';
-            error_cat.innerHTML= data.message;      
+            error_cat.innerHTML= data.message;
+            setCategory()
             }
           if(data.msg == "Token has expired"){
             error_cat.innerHTML= 'Session has expired kindly login again'
@@ -659,6 +666,41 @@ if(view_cat){
 }
 
 // END PUT category**************************************************************************************
+
+// GET all categories into POST product form ************************************************************
+
+function setCategory(){
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/category', {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Request-Method': '*',
+      "Authorization": access_token
+    }
+  })
+  .then((res) => res.json())
+  // .then((data) => console.log(data))
+  .then((data) => {
+    let all_categories = `<option value="choice">Select Category:</option> `;
+    if(data.message == 'No categories'){
+
+      document.getElementById('cat-choice').innerHTML = all_categories;
+    }
+    else{
+    data['Categories'].forEach(function(category){
+      all_categories +=  `
+                        <option value="${category.name}">${category.name}</option>
+                `;
+              });
+      document.getElementById('cat-choice').innerHTML = all_categories;
+    }
+  })
+  .catch((err) => console.log(err))
+}
+
+
+// END GET category into POST product form **************************************************************
+
 
 // run showContainer function
 showContainer()
