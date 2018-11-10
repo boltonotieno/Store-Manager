@@ -149,19 +149,28 @@
         </div>
 
             <!-- Edit Modal -->
-            <div id="editModal" class="editmodal">
+            <div id="edit_productModal" class="editmodal">
                 <!-- Edit Modal content -->
                 <div class="editmodal-content">
-                    <span class="close">&times;</span>
-                    <form action="">
+                    <div><h4 id="edit-product-msg"></h4></div>
+                    <span onclick="close_productModal()" id="close-product" class="close">&times;</span>
+                    <form id="product-form" action="">
                         <legend><strong>Edit Product:</strong></legend>
                         <div class="left-row">
+                        <div class="row">
+                            <div class="left">
+                            <label for="id">Product ID</label>
+                            </div>
+                            <div class="right">
+                            <input id="edit-productID" type="text" name="id" readonly>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="left">
                             <label for="pname">Product Name</label>
                             </div>
                             <div class="right">
-                            <input type="text" name="pname" required>
+                            <input id="edit-productName" type="text" name="pname" required>
                             </div>
                         </div>
                         <div class="row">
@@ -169,7 +178,7 @@
                                 <label for="price">Price  <cite>  (ksh)</cite></label>
                                 </div>
                                 <div class="right">
-                                <input type="text" name="price"  required>
+                                <input id="edit-productPrice" type="text" name="price"  required>
                                 </div>
                         </div>
                         </div>
@@ -180,7 +189,7 @@
                                 <label for="quantity">Quantity</label>
                                 </div>
                                 <div class="right">
-                                <input type="text" name="quantity" required>
+                                <input id="edit-productQuantity" type="text" name="quantity" required>
                                 </div>
                         </div>
                         <div class="right-row">
@@ -189,25 +198,22 @@
                                         <label for="min-quantity">Min quantity</label>
                                         </div>
                                         <div class="right">
-                                        <input type="text" name="min-quantity" required>
+                                        <input id="edit-productMin-quantity"type="text" 
+                                        name="min-quantity" required>
                                         </div>
                                 </div>
-                        <div class="row">
-                                <div class="left">
-                                <label for="quantity">Category</label>
+                                <div class="row">
+                                        <div class="left">
+                                        <label for="category">Category ID</label>
+                                        </div>
+                                        <div class="right">
+                                        <input id="edit-productCategory"type="text" 
+                                        name="category" required>
+                                        </div>
                                 </div>
-                                <div class="right">
-                              <select>
-                                    <option value="0">Select Category:</option>
-                                    <option value="1">Beer</option>
-                                    <option value="2">Spirit</option>
-                                    <option value="3">Wine</option>
-                                </select>
-                                </div>
-                        </div>
                         </div>
                         <button class="edit-btn" type="submit">Save</button>
-                        <button class="cancel-btn" type="submit">cancel</button>
+                        <button class="cancel-btn" onclick="close_productModal()" type="button">cancel</button>
                     </form>
                 </div>
             </div>

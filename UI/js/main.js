@@ -84,7 +84,7 @@ function showContainer(evt, sectionID) {
 // Windows on load ***************************************************************
 
 // Get the whole modal
-var modal = document.getElementById('editModal');
+// var modal = document.getElementById('editModal');
 
 // Get the whole edit role modal
 var edit_role_modal = document.getElementById('edit_roleModal');
@@ -112,12 +112,12 @@ if(edit_role_btn){
   }
 }
 
-// When the user clicks on <span> (x), close the modal
-if(span){
-    span.onclick = function() {
-        modal.style.display = "none";
-  }
-}
+// // When the user clicks on <span> (x), close the modal
+// if(span){
+//     span.onclick = function() {
+//         modal.style.display = "none";
+//   }
+// }
 
 
 // When the user clicks anywhere outside of the modal, close it
@@ -842,7 +842,7 @@ function getProducts(){
             <td>${product.min_quantity}</td>
             <td>
                 <div class="modify-btn">
-                <button id="edit-btn" class="edit-btn">modify</button>
+                <button id="edit-btn" class="edit-btn" onclick="modifyProduct()">modify</button>
                 <button class="delete-btn" onclick="deleteProduct()">delete</button>
                 </div>
             </td>
@@ -905,6 +905,121 @@ function deleteProduct(){
 }
 
 // END DELETE a product ********************************************************************************
+
+
+
+// PUT product *****************************************************************************************
+// close edit product modal
+function close_productModal(){
+  var edit_product_modal = document.getElementById('edit_productModal');
+  edit_product_modal.style.display = "none";
+  let edit_product_msg = document.getElementById('edit-product-msg')
+  edit_product_msg.style.display = 'none';
+
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  var edit_product_modal = document.getElementById('edit_productModal');
+  let edit_product_msg = document.getElementById('edit-product-msg')
+  if (event.target == edit_product_modal) {
+      edit_product_modal.style.display = "none";
+      edit_product_msg.style.display = 'none';
+  }
+}
+
+function modifyProduct(){
+  var table_product = document.getElementById("products");
+  for ( var i = 0; i < table_product.rows.length; i++){
+    table_product.rows[i].onclick = function(){
+      product_id = this.cells[0].innerHTML;
+      document.getElementById('edit-productID').value = this.cells[0].innerHTML;
+      document.getElementById('edit-productName').value = this.cells[1].innerHTML;
+      document.getElementById('edit-productCategory').value = this.cells[2].innerHTML;
+      document.getElementById('edit-productPrice').value = this.cells[3].innerHTML;
+      document.getElementById('edit-productQuantity').value = this.cells[4].innerHTML;
+      document.getElementById('edit-productMin-quantity').value = this.cells[5].innerHTML;
+
+      if(product_id){
+        // Get the whole edit product modal
+        var edit_product_modal = document.getElementById('edit_productModal');
+        edit_product_modal.style.display = "block"
+        }
+    }
+  } 
+}
+
+var prod_form = document.getElementById('product-form');
+  if(prod_form){
+  prod_form.addEventListener('submit', Product);
+  }
+
+  function Product(e){
+    e.preventDefault();
+
+    let prod_id = document.getElementById('edit-productID').value;
+    let prod_name = document.getElementById('edit-productName').value;
+    let prod_price = document.getElementById('edit-productPrice').value;
+    let prod_quantiry = document.getElementById('edit-productQuantity').value;
+    let prod_min_quantity = document.getElementById('edit-productMin-quantity').value;
+    let prod_cat = document.getElementById('edit-productCategory').value;
+  
+    const data_prod = {
+      "name": prod_name,
+      "price": prod_price,
+      "quantity": prod_quantiry,
+      "min_quantity": prod_min_quantity,
+      "category_id": prod_cat
+    }
+
+    fetch(`https://my-store-manager-api.herokuapp.com/api/v2/products/${prod_id}`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, test/plain, */*',
+        'Content-type': 'application/json',
+        "Authorization": access_token
+      },
+      body: JSON.stringify(data_prod)
+    })
+    .then((res) => res.json())
+    // .then((data) => console.log(data))
+    .then((data) => {
+          let edit_product_msg = document.getElementById('edit-product-msg')
+          edit_product_msg.style.display = 'block';
+          edit_product_msg.style.color = 'red';
+          if(data.message == "Invalid product name"){
+            edit_product_msg.innerHTML= data.message;
+          }
+          if(data.message == "Invalid product price"){
+            edit_product_msg.innerHTML= data.message;
+          }
+          if(data.message == "Invalid product quantity"){
+            edit_product_msg.innerHTML= data.message;
+          }
+          if(data.message == "Invalid product minimum quantity"){ 
+            edit_product_msg.innerHTML= data.message;
+          }
+          if(data.message == "Invalid product category id"){ 
+            edit_product_msg.innerHTML= data.message;
+          }
+          if(data.message == `Category id ${prod_cat} does not exist`){ 
+            edit_product_msg.innerHTML= data.message;
+          }
+          if(data.message == `Product id ${prod_id} successfuly modified`){
+            edit_product_msg.style.color = 'green';
+            edit_product_msg.innerHTML= data.message;
+            getProducts()
+          }
+          if(data.msg == "Token has expired"){
+            edit_product_msg.innerHTML= 'Session has expired kindly login again'
+          }
+    })
+    .catch((err) => console.log(err))
+  }
+
+// END PUT category**************************************************************************************
+
+
 
 // run showContainer function
 showContainer()
