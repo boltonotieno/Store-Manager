@@ -138,152 +138,14 @@
             </div>
             </div>
             <button class="add-btn" type="submit">Add</button>
-            <button class="cancel-btn">cancel</button>
+            <button class="cancel-btn" type="button" onclick="clear_productForm()">cancel</button>
         </form>
         </div>
 
         <!-- Product list Conatiner-->
         <div class="product-container">
-        <table id="products">
-            <tr>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Min quantity</th>
-                <th>Action</th>
-            </tr>
-            <tr>
-                <td>Pilsner</td>
-                <td>Beer</td>
-                <td>200</td>
-                <td>20</td>
-                <td>5</td>
-                <td>
-                    <div class="modify-btn">
-                    <button id="edit-btn" class="edit-btn">modify</button>
-                    <button class="delete-btn">delete</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Guinness</td>
-                <td>Beer</td>
-                <td>200</td>
-                <td>30</td>
-                <td>5</td>
-                <td>
-                    <div class="modify-btn">
-                        <button id="edit-btn" class="edit-btn">modify</button>
-                        <button class="delete-btn">delete</button>
-                        </div>
-                    </td>
-            </tr>
-            <tr>
-                <td>Smirnof</td>
-                <td>Vodka</td>
-                <td>1000</td>
-                <td>10</td>
-                <td>5</td>
-                <td>
-                    <div class="modify-btn">
-                    <button id="edit-btn" class="edit-btn">modify</button>
-                    <button class="delete-btn">delete</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>BlueMoon</td>
-                <td>Spirit</td>
-                <td>600</td>
-                <td>23</td>
-                <td>5</td>
-                <td>
-                    <div class="modify-btn">
-                        <button id="edit-btn" class="edit-btn">modify</button>
-                        <button class="delete-btn">delete</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>JohnyWalker</td>
-                <td>Whiskey</td>
-                <td>2500</td>
-                <td>10</td>
-                <td>5</td>
-                <td>
-                    <div class="modify-btn">
-                        <button id="edit-btn" class="edit-btn">modify</button>
-                        <button class="delete-btn">delete</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Kibao</td>
-                <td>Vodka</td>
-                <td>600</td>
-                <td>15</td>
-                <td>5</td>
-                <td>
-                    <div class="modify-btn">
-                        <button id="edit-btn" class="edit-btn">modify</button>
-                        <button class="delete-btn">delete</button>
-                    </div>
-                 </td>
-            </tr>
-            <tr>
-                <td>Kenya Cane</td>
-                <td>Spirit</td>
-                <td>500</td>
-                <td>25</td>
-                <td>5</td>
-                <td>
-                    <div class="modify-btn">
-                        <button id="edit-btn" class="edit-btn">modify</button>
-                        <button class="delete-btn">delete</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Red Label</td>
-                <td>Whiskey</td>
-                <td>2500</td>
-                <td>10</td>
-                <td>5</td>
-                <td>
-                    <div class="modify-btn">
-                        <button id="edit-btn" class="edit-btn">modify</button>
-                        <button class="delete-btn">delete</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Four Cousins</td>
-                <td>Wine</td>
-                <td>1000</td>
-                <td>8</td>
-                <td>5</td>
-                <td>
-                    <div class="modify-btn">
-                        <button id="edit-btn" class="edit-btn">modify</button>
-                        <button class="delete-btn">delete</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Black Label</td>
-                <td>Whiskey</td>
-                <td>3500</td>
-                <td>5</td>
-                <td>5</td>
-                <td>
-                    <div class="modify-btn">
-                        <button id="edit-btn" class="edit-btn">modify</button>
-                        <button class="delete-btn">delete</button>
-                    </div>
-                </td>                
-            </tr>
-        </table>
+            <div><h4 id="no-products"></h4></div>
+            <table id="products"></table>
         </div>
 
             <!-- Edit Modal -->
@@ -578,7 +440,8 @@
                     </div>
                 </div>
             <button class="add-btn" type="submit">Add</button>
-            <button id="view-users" class="cancel-btn" onclick="showContainer(event, 'view-attendant')" >cancel</button>
+            <button id="view-users" class="cancel-btn" type="button"
+            onclick="showContainer(event, 'view-attendant')" >cancel</button>
         </form>
 
         </div>
@@ -593,7 +456,8 @@
         </div>
             
         <div class="view-attendant-container">
-            <button class="add-btn" onclick="showContainer(event, 'add-attendant')">Add Attendant</button>
+            <button class="add-btn" type="button"
+            onclick="showContainer(event, 'add-attendant')">Add Attendant</button>
     
         <!-- Attendant view table -->
             <div><h4 id="no-users"></h4></div>
@@ -632,7 +496,8 @@
                             </div>
                             </div>
                             <button onclick="Role()" class="edit-btn" type="submit">Save</button>
-                            <button id="view-users-role" onclick="close_roleModal()" class="cancel-btn">cancel</button>
+                            <button id="view-users-role" onclick="close_roleModal()" type="button"
+                            class="cancel-btn">cancel</button>
                         </form>
                     </div>
                 </div>
@@ -679,7 +544,8 @@
                         </div>
                     </div>
                     <button class="add-btn" type="submit">Add</button>
-                    <button id="back-category-view" class="back-btn" onclick="showContainer(event, 'view-category')">Back</button>
+                    <button id="back-category-view" class="back-btn" type="button"
+                    onclick="showContainer(event, 'view-category')">Back</button>
                 </form>
                 
                 </div>
@@ -713,7 +579,8 @@
                             </div>
                             </div>
                             <button onclick="Category()" class="edit-btn" type="submit">Save</button>
-                            <button id="view-cat" onclick="close_catModal()" class="cancel-btn">cancel</button>
+                            <button id="view-cat" onclick="close_catModal()" type="button"
+                            class="cancel-btn">cancel</button>
                         </form>
                     </div>
                 </div>

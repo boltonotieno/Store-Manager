@@ -63,6 +63,7 @@ function showContainer(evt, sectionID) {
     } 
 }
 
+// Windows on load ***************************************************************
  function clickFunction() {
 
      // Get the element with id="default" and click on it
@@ -76,7 +77,11 @@ function showContainer(evt, sectionID) {
 
     //  set all categories on load to product form
     setCategory()
+
+    //  get all products on load 
+    getProducts()
  }
+// Windows on load ***************************************************************
 
 // Get the whole modal
 var modal = document.getElementById('editModal');
@@ -555,6 +560,11 @@ function deleteCategory(){
           no_category.style.color = 'red';
           no_category.innerHTML= data.message; 
         }
+        if(data.message == `There exist a product with category_id ${cat_id}`){
+          no_category.style.display = 'block';
+          no_category.style.color = 'red';
+          no_category.innerHTML= data.message; 
+        }
         if(data.message == `Category id ${cat_id} successfuly deleted`){
           for(var i = table_cat.rows.length - 1; i > -1; i--){
               table_cat.deleteRow(i);
@@ -710,6 +720,9 @@ if(product_form){
 
 }
 
+function clear_productForm(){
+  product_form.reset();
+}
 
 function postProduct(e){
   e.preventDefault();
@@ -766,6 +779,7 @@ function postProduct(e){
     if(data.message == `Product created successfully`){
       error_product.style.color = 'green';
       error_product.innerHTML= data.message;
+      getProducts()
     }
     if(data.msg == "Token has expired"){
       error_product.innerHTML= 'Session has expired kindly login again'
@@ -776,6 +790,68 @@ function postProduct(e){
 }
 
 // END POST product**********************************************************************************
+
+
+// GET Products **************************************************************************************
+var view_users = document.getElementById('view-users');
+if(view_users){
+  view_users.addEventListener('click', getUsers);
+}
+
+
+function getProducts(){
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/products', {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Request-Method': '*',
+      "Authorization": access_token
+    }
+  })
+  .then((res) => res.json())
+  // .then((data) => console.log(data))
+  .then((data) => {
+    let no_products = document.getElementById('no-products')
+    if(data.message == 'No products'){
+      no_products.style.display = 'block';
+      no_products.innerHTML= data.message; 
+    }
+    else{
+    no_products.style.display = 'none';
+    let all_products = `
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category ID</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Min quantity</th>
+                <th>Action</th>
+                      `;
+    data['Products'].forEach(function(product){
+      all_products +=  `
+        <tr>
+            <td>${product.id}</td>
+            <td>${product.name}</td>
+            <td>${product.category_id}</td>
+            <td>${product.price}</td>
+            <td>${product.quantity}</td>
+            <td>${product.min_quantity}</td>
+            <td>
+                <div class="modify-btn">
+                <button id="edit-btn" class="edit-btn">modify</button>
+                <button class="delete-btn">delete</button>
+                </div>
+            </td>
+        </tr>
+      `;
+    });
+    document.getElementById('products').innerHTML = all_products;
+    }
+  })
+  .catch((err) => console.log(err))
+}
+
+// END GET Products  **********************************************************************************
 
 
 // run showContainer function
