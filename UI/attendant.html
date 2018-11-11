@@ -23,8 +23,8 @@
         <li class="dropdown"><a >Sales
         <i class="down-arrow"></i></a>
         <div class="dropdown-content">
-            <a class="tablinks" onclick="showContainer(event, 'add-sales')">add</a>
-            <a id="default" class="tablinks" onclick="showContainer(event, 'view-sales')">view</a>
+            <a id="default" class="tablinks" onclick="showContainer(event, 'add-sales')">add</a>
+            <a class="tablinks" onclick="showContainer(event, 'view-sales')">view</a>
         </div>
         </li>
         
@@ -66,8 +66,7 @@
                 <label for="pname">Product Name</label>
                 </div>
                 <div class="right">
-                <input id="product-name" type="text" name="pname" placeholder="Enter Product name.." 
-                required readonly>
+                <input id="product-name" type="text" name="pname" required readonly>
                 </div>
             </div>
             <div class="row">
@@ -84,8 +83,7 @@
                     <label for="price">Price  <cite>  (ksh)</cite></label>
                     </div>
                     <div class="right">
-                    <input id="product-price" type="text" name="price" placeholder="Enter price.." 
-                    required readonly>
+                    <input id="product-price" type="text" name="price" required readonly>
                     </div>
             
             </div>
@@ -119,7 +117,8 @@
 
         <div class="view-sales-container">
             <form class="search-input" >
-                <input id="dateFilter"  type="date" name="date-filter">
+                <input id="saleInput"  onkeyup="saleFilter()" type="text" name="search"
+                placeholder="Search by id..">
             </form>
             <div><h4 id="no-sales"></h4></div>    
             <table id="sales"></table>
