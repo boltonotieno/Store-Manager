@@ -251,6 +251,10 @@ i{
     width: 50%;
 }
 
+.view-category-container .search-input input[type=text]{
+    height: 10px;
+}
+
 
 /*view product table list css */
 

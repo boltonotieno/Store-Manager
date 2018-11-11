@@ -217,7 +217,10 @@
         </div>
             
         <div class="view-category-container">
-    
+        <form class="search-input" >
+            <input id="categoryInput"  onkeyup="categoryFilter()" type="text" name="search" 
+            placeholder="Search by name..">
+        </form>
         <!-- Category view table -->
             <div><h4 id="no-category"></h4></div>
             <table id="category"></table>        
