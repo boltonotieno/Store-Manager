@@ -42,7 +42,3 @@
   
   // END login backend ************************************************************************************
   
-  // Access token from login
-  const token = localStorage.getItem('access_token')
-  const access_token = "Bearer " + token
-  
