@@ -332,7 +332,7 @@ i{
 }
 
 /* Error messages */
-#no-category, #no-products, #product-msg{
+#no-category, #no-products, #product-msg, #no-sales{
     text-align: center;
     font-family:  "Lucida Console", Monaco, monospace;
     font-size: 15px;

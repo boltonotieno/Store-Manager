@@ -50,6 +50,9 @@ function clickFunction() {
 
     //  get all categories on load 
     getCategory()
+
+    //  get attendant sales on load 
+    getSales()
  
 }
 // Windows on load ***************************************************************
@@ -260,7 +263,7 @@ function setProduct(){
         document.getElementById('product-price').value = data['Product']['price'];
       }
       if(data.msg == "Token has expired"){
-        product_msg.innerHTML= 'Session has expired kindly login again'
+        alert('Session has expired kindly login again')
       }
     })
     .catch((err) => console.log(err))
@@ -280,6 +283,13 @@ if(sale_form){
 function clear_saleForm(){
   sale_form.reset();
 }
+
+function cal_Amount(){
+    let product_price = document.getElementById('product-price').value;
+    let product_quantity = document.getElementById('product-quantity').value;
+    let Amount = product_price * product_quantity
+    document.getElementById('sale-total').value = Amount;
+  }
 
 function postSale(e){
   e.preventDefault();
@@ -330,6 +340,9 @@ function postSale(e){
     if(data.message == `Sales created successfully`){
         product_msg.style.color = 'green';
         product_msg.innerHTML= data.message;
+        getSales()
+        getProducts()
+        clear_saleForm()
     }
     if(data.msg == "Token has expired"){
         alert('Session has expired kindly login again')
@@ -339,3 +352,57 @@ function postSale(e){
 }
 
 // END POST Sales**********************************************************************************
+
+  
+// GET all attendant sales ***********************************************************************************
+
+function getSales(){
+    fetch('https://my-store-manager-api.herokuapp.com/api/v2/sales', {
+      method: 'GET',
+      headers: {
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Request-Method': '*',
+        "Authorization": access_token
+      }
+    })
+    .then((res) => res.json())
+    // .then((data) => console.log(data))
+    .then((data) => {
+      let no_sales = document.getElementById('no-sales')
+      if(data.message == 'You have no sales'){
+        no_sales.style.display = 'block';
+        no_sales.innerHTML= data.message; 
+      }
+      else{
+      no_sales.style.display = 'none';
+            let all_sales = `
+                        <tr>
+                        <th>ID</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Creator</th>
+                        </tr>
+                        `;
+      data['Sales'].forEach(function(sale){
+        all_sales +=  `
+          <tr>
+              <td>${sale.id}</td>
+              <td>${sale.name}</td>
+              <td>${sale.price}</td>
+              <td>${sale.quantity}</td>
+              <td>${sale.total_price}</td>
+              <td>${sale.attendant}</td>
+          </td>
+          </tr>
+        `;
+      });
+      document.getElementById('sales').innerHTML = all_sales;
+      }
+    })
+    .catch((err) => console.log(err))
+  }
+  
+  // END GET all attendant sales *************************************************************************
+  

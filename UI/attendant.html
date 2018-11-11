@@ -75,7 +75,8 @@
                     <label for="quantity">Quantity</label>
                     </div>
                     <div class="right">
-                    <input id="product-quantity" type="text" name="quantity" placeholder="Enter quantity.." required>
+                    <input id="product-quantity" type="text" name="quantity" placeholder="Enter quantity.." 
+                    onkeyup="cal_Amount()" required>
                     </div>
             </div>
             <div class="row">
@@ -87,6 +88,14 @@
                     required readonly>
                     </div>
             
+            </div>
+            <div class="row">
+                    <div class="left">
+                    <label for="total">Total  <cite>  (ksh)</cite></label>
+                    </div>
+                    <div class="right">
+                    <input id="sale-total" type="text" name="total" readonly>
+                    </div>
             </div>
             <div class="row">
             <button class="add-btn" type="submit">Add</button>
@@ -112,63 +121,8 @@
             <form class="search-input" >
                 <input id="dateFilter"  type="date" name="date-filter">
             </form>
-                
-            <table id="sales">   
-                <tr>
-                    <th>Sales ID</th>
-                    <th>Date Time</th>
-                    <th>Total Products</th>
-                    <th>Total Amount</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>2</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>2</td>
-                    <td>1000</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>5</td>
-                    <td>500</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>2</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>2</td>
-                    <td>1000</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>2</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>2</td>
-                    <td>1000</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>5</td>
-                    <td>500</td>
-                </tr>
-            </table>
+            <div><h4 id="no-sales"></h4></div>    
+            <table id="sales"></table>
             </div>
     </div>
 
