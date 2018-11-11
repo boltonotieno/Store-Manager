@@ -8,7 +8,7 @@
     redirect: window.location.replace("./index.html")
   }
 
-
+// Set username on topnav
 function setUserName(){
   document.getElementById('current-user').innerHTML = current_user;
 }
