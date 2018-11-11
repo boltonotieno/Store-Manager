@@ -220,3 +220,49 @@ function logoutAttendant(){
 }
 
 // End LOGOUT attendant ******************************************
+
+// Set product details in sales form ********************************************************************
+var search_prod = document.getElementById('search-product');
+  if(search_prod){
+    search_prod.addEventListener('click', setProduct);
+  }
+
+function setProduct(){
+
+    let product_id = document.getElementById('product-id').value;
+
+    fetch(`https://my-store-manager-api.herokuapp.com/api/v2/products/${product_id}`, {
+      method: 'GET',
+      headers: {
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Request-Method': '*',
+        "Authorization": access_token
+      }
+    })
+    .then((res) => res.json())
+    // .then((data) => console.log(data))
+    .then((data) => {
+    let product_msg = document.getElementById('product-msg')
+    product_msg.style.color = 'red';
+      if(data.message == 'Product not Found'){
+        product_msg.innerHTML = data.message;
+      }
+      if(data.message == `Product id ${product_id} is invalid`){
+        product_msg.innerHTML = data.message;
+      }
+      if(data.message == `Product successfully retrieved`){
+        product_msg.style.color = 'green';
+        product_msg.innerHTML = data.message;
+        document.getElementById('product-name').value = data['Product']['name'];
+        document.getElementById('product-price').value = data['Product']['price'];
+      }
+      if(data.msg == "Token has expired"){
+        product_msg.innerHTML= 'Session has expired kindly login again'
+      }
+    })
+    .catch((err) => console.log(err))
+  }
+  
+  
+  // END Set product details in sales form *****************************************************************
+  
