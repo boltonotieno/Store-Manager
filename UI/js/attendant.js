@@ -93,6 +93,9 @@ function getProducts(){
         no_products.style.display = 'block';
         no_products.innerHTML= data.message; 
       }
+      if(data.msg == "Token has expired"){
+        alert('Session has expired kindly login again')
+      }
       else{
       no_products.style.display = 'none';
       let all_products = `
@@ -266,3 +269,73 @@ function setProduct(){
   
   // END Set product details in sales form *****************************************************************
   
+
+// POST Sales **********************************************************************************************
+var sale_form = document.getElementById('sale-form');
+if(sale_form){
+  sale_form.addEventListener('submit', postSale);
+
+}
+
+function clear_saleForm(){
+  sale_form.reset();
+}
+
+function postSale(e){
+  e.preventDefault();
+
+  let product_name = document.getElementById('product-name').value;
+  let product_price = document.getElementById('product-price').value;
+  let product_quantity = document.getElementById('product-quantity').value;
+  let attendant = current_user;
+
+  const data_sale = {
+    "name": product_name,
+    "price": product_price,
+    "quantity": product_quantity,
+    "attendant": attendant
+  }
+
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/sales', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, test/plain, */*',
+      'Content-type': 'application/json',
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Request-Method': '*',
+      "Authorization": access_token
+    },
+    body: JSON.stringify(data_sale)
+  })
+  .then((res) => res.json())
+//   .then((data) => console.log(data))
+  .then((data) => {
+    let product_msg = document.getElementById('product-msg')
+    product_msg.style.color = 'red';
+    if(data.message == "Invalid product quantity"){
+        product_msg.innerHTML= data.message;
+    }
+    if(data.message == "Invalid product name"){
+        product_msg.innerHTML= data.message;
+    }
+    if(data.message == `Product quantity is more than available inventory quantity`){
+        product_msg.innerHTML= data.message;
+    }
+    if(data.message == `Product quantity will go below the minimum quantity allowed`){
+        product_msg.innerHTML= data.message;
+    }
+    if(data.message == "Product has reached the minimum quantity"){ 
+        product_msg.innerHTML= data.message;
+    }
+    if(data.message == `Sales created successfully`){
+        product_msg.style.color = 'green';
+        product_msg.innerHTML= data.message;
+    }
+    if(data.msg == "Token has expired"){
+        alert('Session has expired kindly login again')
+    }
+  })
+  .catch((err) => console.log(err))
+}
+
+// END POST Sales**********************************************************************************
