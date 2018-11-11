@@ -38,6 +38,60 @@ function clickFunction() {
 
     //  set username
      setUserName()
+     
+    //  get all products on load 
+    getProducts()
  
 }
 // Windows on load ***************************************************************
+
+
+// GET Products  **********************************************************************************
+
+function getProducts(){
+    fetch('https://my-store-manager-api.herokuapp.com/api/v2/products', {
+      method: 'GET',
+      headers: {
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Request-Method': '*',
+        "Authorization": access_token
+      }
+    })
+    .then((res) => res.json())
+    // .then((data) => console.log(data))
+    .then((data) => {
+      let no_products = document.getElementById('no-products')
+      if(data.message == 'No products'){
+        no_products.style.display = 'block';
+        no_products.innerHTML= data.message; 
+      }
+      else{
+      no_products.style.display = 'none';
+      let all_products = `
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Category ID</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Min quantity</th>
+                        `;
+      data['Products'].forEach(function(product){
+        all_products +=  `
+          <tr>
+              <td>${product.id}</td>
+              <td>${product.name}</td>
+              <td>${product.category_id}</td>
+              <td>${product.price}</td>
+              <td>${product.quantity}</td>
+              <td>${product.min_quantity}</td>
+          </tr>
+        `;
+      });
+      document.getElementById('view-products').innerHTML = all_products;
+      }
+    })
+    .catch((err) => console.log(err))
+  }
+  
+  // END GET Products  **********************************************************************************
+  
