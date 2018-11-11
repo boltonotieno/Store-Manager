@@ -12,7 +12,21 @@
 function setUserName(){
   document.getElementById('current-user').innerHTML = current_user;
 }
- 
+
+// count all table rows
+function countTable(){
+  let total_products = (document.getElementById("products").rows.length)-1;
+  document.getElementById('product-count').innerHTML = total_products;
+
+  let total_sales = (document.getElementById("view-sales").rows.length)-1;
+  document.getElementById('sales-count').innerHTML = total_sales;
+
+  let total_users = (document.getElementById("users").rows.length)-1;
+  document.getElementById('users-count').innerHTML = total_users;
+
+  let total_category = (document.getElementById("category").rows.length)-1;
+  document.getElementById('category-count').innerHTML = total_category;
+}
 
 function showContainer(evt, sectionID) {
     // Declare all variables
@@ -277,7 +291,7 @@ function getUsers(){
       `;
     });
     document.getElementById('users').innerHTML = all_users;
-    document.getElementById('edit-roleChoice').innerText
+    countTable()
 
     }
   })
@@ -488,6 +502,7 @@ function getCategory(){
       `;
     });
     document.getElementById('category').innerHTML = all_categories;
+    countTable()
     }
   })
   .catch((err) => console.log(err))
@@ -811,6 +826,7 @@ function getProducts(){
       `;
     });
     document.getElementById('products').innerHTML = all_products;
+    countTable()
     }
   })
   .catch((err) => console.log(err))
@@ -1077,6 +1093,7 @@ function getSales(){
       `;
     });
     document.getElementById('view-sales').innerHTML = all_sales;
+    countTable()
     }
   })
   .catch((err) => console.log(err))

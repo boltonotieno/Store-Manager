@@ -110,22 +110,23 @@ i{
     letter-spacing: 3px;
 }
 
-.card-product, .card-sales, .card-attendant, .card-admin{
+
+/* Dashboard content */
+.card-product, .card-sales, .card-users, .card-category{
     margin: 5px;
     width: 40%;
     float: left;
     padding: 5px;
     box-shadow: 0 5px 9px 0 rgba(0,0,0,0.2);
 }
-.card-product:hover, .card-sales:hover, .card-attendant:hover, .card-admin:hover{
+.card-product:hover, .card-sales:hover, .card-users:hover, .card-category:hover{
         box-shadow: 0 17px 22px 0 rgba(0,0,0,0.2);
 }
 .card-product{
     background-color: #e0f2f1;
 }
-.card-product a, .card-sales a, .card-attendant a, .card-admin a{
+.card-product a, .card-sales a, .card-users a, .card-category a{
     padding: 40%;
-    width: 100%;
     cursor: pointer;
     font-size: 15px;
     color: #4471B7;
@@ -135,10 +136,10 @@ i{
 .card-sales{
     background-color: #ffebee ;
 }
-.card-attendant{
+.card-users{
     background-color: #ffebee ;
 }
-.card-admin{
+.card-category{
     background-color: #e0f2f1;
 
 }
