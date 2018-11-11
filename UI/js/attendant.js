@@ -144,7 +144,6 @@ function getCategory(){
                       <tr>
                       <th>ID</th>
                       <th>Name</th>
-                      <th>Action</th>
                       </tr>
                       `;
     data['Categories'].forEach(function(category){
@@ -152,12 +151,6 @@ function getCategory(){
         <tr>
             <td>${category.id}</td>
             <td>${category.name}</td>
-            <td>
-            <div class="sales-modify-btn">
-            <button id="modify-cat-btn" onclick="modifyCategory()">edit</button>
-            <button id="delete-cat-btn" onclick="deleteCategory()">delete</button>
-            </div>
-            </td>
         </td>
         </tr>
       `;
