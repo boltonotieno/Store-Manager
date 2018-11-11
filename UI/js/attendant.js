@@ -3,6 +3,12 @@
    const current_user = localStorage.getItem('current_user')
    const access_token = "Bearer " + token
 
+  // check if token exist during load
+  if (token === null){
+    redirect: window.location.replace("./index.html")
+  }
+
+
 function setUserName(){
   document.getElementById('current-user').innerHTML = current_user;
 }
@@ -182,3 +188,34 @@ function getCategory(){
 }
 
 // END GET all categories *******************************************************************************
+
+// LOGOUT attendant **********************************************
+var logout_attendant = document.getElementById('logout-attendant');
+if(logout_attendant){
+  logout_attendant.addEventListener('click', logoutAttendant);
+}
+
+function logoutAttendant(){
+    fetch('https://my-store-manager-api.herokuapp.com/api/v2/auth/logout', {
+        method: 'DELETE',
+        headers: {
+          'Access-Control-Allow-Origin':'*',
+          'Access-Control-Request-Method': '*',
+          "Authorization": access_token
+        }
+      })
+      .then((res) => res.json())
+    //   .then((data) => console.log(data))
+      .then((data) => {
+        localStorage.removeItem('access_token');
+        if(data.msg == 'Token has expired'){
+            redirect: window.location.replace("./index.html")
+          }
+        if(data.message == 'Logged out succesful'){
+            redirect: window.location.replace("./index.html")
+        }
+      })
+      .catch((err) => console.log(err))
+}
+
+// End LOGOUT attendant ******************************************
