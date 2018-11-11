@@ -110,22 +110,23 @@ i{
     letter-spacing: 3px;
 }
 
-.card-product, .card-sales, .card-attendant, .card-admin{
+
+/* Dashboard content */
+.card-product, .card-sales, .card-users, .card-category{
     margin: 5px;
     width: 40%;
     float: left;
     padding: 5px;
     box-shadow: 0 5px 9px 0 rgba(0,0,0,0.2);
 }
-.card-product:hover, .card-sales:hover, .card-attendant:hover, .card-admin:hover{
+.card-product:hover, .card-sales:hover, .card-users:hover, .card-category:hover{
         box-shadow: 0 17px 22px 0 rgba(0,0,0,0.2);
 }
 .card-product{
     background-color: #e0f2f1;
 }
-.card-product a, .card-sales a, .card-attendant a, .card-admin a{
+.card-product a, .card-sales a, .card-users a, .card-category a{
     padding: 40%;
-    width: 100%;
     cursor: pointer;
     font-size: 15px;
     color: #4471B7;
@@ -135,10 +136,10 @@ i{
 .card-sales{
     background-color: #ffebee ;
 }
-.card-attendant{
+.card-users{
     background-color: #ffebee ;
 }
-.card-admin{
+.card-category{
     background-color: #e0f2f1;
 
 }
@@ -366,23 +367,23 @@ i{
 }
 
 /* sales table css */
-#sales{
+#view-sales{
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
 
-#sales td, #sales th {
+#sales td, #view-sales th {
     border: 1px solid #ddd;
     padding: 8px;
     font-size: 14px;
 }
 
-#sales tr:nth-child(even){background-color: #f2f2f2;}
+#view-sales tr:nth-child(even){background-color: #f2f2f2;}
 
-#sales tr:hover {background-color: #ddd;}
+#view-sales tr:hover {background-color: #ddd;}
 
-#sales th {
+#view-sales th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
@@ -675,7 +676,7 @@ i{
 
 /* error message******************************** */
 #error-reg, #error-role, #error-category, #no-category, #no-users,
- #error-product, #no-products, #edit-product-msg{
+ #error-product, #no-products, #edit-product-msg, #no-sales{
     text-align: center;
     font-family:  "Lucida Console", Monaco, monospace;
     font-size: 15px;

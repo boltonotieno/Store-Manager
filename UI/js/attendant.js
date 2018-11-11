@@ -50,6 +50,9 @@ function clickFunction() {
 
     //  get all categories on load 
     getCategory()
+
+    //  get attendant sales on load 
+    getSales()
  
 }
 // Windows on load ***************************************************************
@@ -92,6 +95,9 @@ function getProducts(){
       if(data.message == 'No products'){
         no_products.style.display = 'block';
         no_products.innerHTML= data.message; 
+      }
+      if(data.msg == "Token has expired"){
+        alert('Session has expired kindly login again')
       }
       else{
       no_products.style.display = 'none';
@@ -220,3 +226,203 @@ function logoutAttendant(){
 }
 
 // End LOGOUT attendant ******************************************
+
+// Set product details in sales form ********************************************************************
+var search_prod = document.getElementById('search-product');
+  if(search_prod){
+    search_prod.addEventListener('click', setProduct);
+  }
+
+function setProduct(){
+
+    let product_id = document.getElementById('product-id').value;
+
+    fetch(`https://my-store-manager-api.herokuapp.com/api/v2/products/${product_id}`, {
+      method: 'GET',
+      headers: {
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Request-Method': '*',
+        "Authorization": access_token
+      }
+    })
+    .then((res) => res.json())
+    // .then((data) => console.log(data))
+    .then((data) => {
+    let product_msg = document.getElementById('product-msg')
+    product_msg.style.color = 'red';
+      if(data.message == 'Product not Found'){
+        product_msg.innerHTML = data.message;
+      }
+      if(data.message == `Product id ${product_id} is invalid`){
+        product_msg.innerHTML = data.message;
+      }
+      if(data.message == `Product successfully retrieved`){
+        product_msg.style.color = 'green';
+        product_msg.innerHTML = data.message;
+        document.getElementById('product-name').value = data['Product']['name'];
+        document.getElementById('product-price').value = data['Product']['price'];
+        cal_Amount()
+      }
+      if(data.msg == "Token has expired"){
+        alert('Session has expired kindly login again')
+      }
+    })
+    .catch((err) => console.log(err))
+  }
+  
+  
+  // END Set product details in sales form *****************************************************************
+  
+
+// POST Sales **********************************************************************************************
+var sale_form = document.getElementById('sale-form');
+if(sale_form){
+  sale_form.addEventListener('submit', postSale);
+
+}
+
+function clear_saleForm(){
+  sale_form.reset();
+}
+
+function cal_Amount(){
+    let product_price = document.getElementById('product-price').value;
+    let product_quantity = document.getElementById('product-quantity').value;
+    let Amount = product_price * product_quantity
+    document.getElementById('sale-total').value = Amount;
+  }
+
+function postSale(e){
+  e.preventDefault();
+
+  let product_name = document.getElementById('product-name').value;
+  let product_price = document.getElementById('product-price').value;
+  let product_quantity = document.getElementById('product-quantity').value;
+  let attendant = current_user;
+
+  const data_sale = {
+    "name": product_name,
+    "price": product_price,
+    "quantity": product_quantity,
+    "attendant": attendant
+  }
+
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/sales', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, test/plain, */*',
+      'Content-type': 'application/json',
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Request-Method': '*',
+      "Authorization": access_token
+    },
+    body: JSON.stringify(data_sale)
+  })
+  .then((res) => res.json())
+//   .then((data) => console.log(data))
+  .then((data) => {
+    let product_msg = document.getElementById('product-msg')
+    product_msg.style.color = 'red';
+    if(data.message == "Invalid product quantity"){
+        product_msg.innerHTML= data.message;
+    }
+    if(data.message == "Invalid product name"){
+        product_msg.innerHTML= data.message;
+    }
+    if(data.message == `Product quantity is more than available inventory quantity`){
+        product_msg.innerHTML= data.message;
+    }
+    if(data.message == `Product quantity will go below the minimum quantity allowed`){
+        product_msg.innerHTML= data.message;
+    }
+    if(data.message == "Product has reached the minimum quantity"){ 
+        product_msg.innerHTML= data.message;
+    }
+    if(data.message == `Sales created successfully`){
+        product_msg.style.color = 'green';
+        product_msg.innerHTML= data.message;
+        getSales()
+        getProducts()
+        clear_saleForm()
+    }
+    if(data.msg == "Token has expired"){
+        alert('Session has expired kindly login again')
+    }
+  })
+  .catch((err) => console.log(err))
+}
+
+// END POST Sales**********************************************************************************
+
+// filter sale by id
+  function saleFilter() {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("saleInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("sales");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+
+  
+// GET all attendant sales ***********************************************************************************
+
+function getSales(){
+    fetch('https://my-store-manager-api.herokuapp.com/api/v2/sales', {
+      method: 'GET',
+      headers: {
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Request-Method': '*',
+        "Authorization": access_token
+      }
+    })
+    .then((res) => res.json())
+    // .then((data) => console.log(data))
+    .then((data) => {
+      let no_sales = document.getElementById('no-sales')
+      if(data.message == 'You have no sales'){
+        no_sales.style.display = 'block';
+        no_sales.innerHTML= data.message; 
+      }
+      else{
+      no_sales.style.display = 'none';
+            let all_sales = `
+                        <tr>
+                        <th>ID</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Creator</th>
+                        </tr>
+                        `;
+      data['Sales'].forEach(function(sale){
+        all_sales +=  `
+          <tr>
+              <td>${sale.id}</td>
+              <td>${sale.name}</td>
+              <td>${sale.price}</td>
+              <td>${sale.quantity}</td>
+              <td>${sale.total_price}</td>
+              <td>${sale.attendant}</td>
+          </td>
+          </tr>
+        `;
+      });
+      document.getElementById('sales').innerHTML = all_sales;
+      }
+    })
+    .catch((err) => console.log(err))
+  }
+  
+  // END GET all attendant sales *************************************************************************
+  

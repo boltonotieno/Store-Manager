@@ -23,8 +23,8 @@
         <li class="dropdown"><a >Sales
         <i class="down-arrow"></i></a>
         <div class="dropdown-content">
-            <a class="tablinks" onclick="showContainer(event, 'add-sales')">add</a>
-            <a id="default" class="tablinks" onclick="showContainer(event, 'view-sales')">view</a>
+            <a id="default" class="tablinks" onclick="showContainer(event, 'add-sales')">add</a>
+            <a class="tablinks" onclick="showContainer(event, 'view-sales')">view</a>
         </div>
         </li>
         
@@ -50,14 +50,15 @@
         <div class="section">
         <!-- Product add form -->
         <div class="product-container">
-        <form action="">
+        <form id="sale-form" action="">
+            <div><h4 id="product-msg"></h4></div>
             <div class="row">
                 <div class="left">
-                <label for="pid">Product ID</label>
+                <label for="product">Product ID</label>
                 </div>
                 <div class="right">
-                <input id="pid" type="text" name="pid" placeholder="Enter ID.." required>
-                <label class="search-label">Search</label>
+                <input id="product-id" type="text" name="product" placeholder="Enter ID..">
+                <label id="search-product" class="search-label">Search</label>
                 </div>
             </div>
             <div class="row">
@@ -65,7 +66,7 @@
                 <label for="pname">Product Name</label>
                 </div>
                 <div class="right">
-                <input id="pname" type="text" name="pname" placeholder="Enter Product name.." required>
+                <input id="product-name" type="text" name="pname" required readonly>
                 </div>
             </div>
             <div class="row">
@@ -73,7 +74,8 @@
                     <label for="quantity">Quantity</label>
                     </div>
                     <div class="right">
-                    <input id="pquantity" type="text" name="quantity" placeholder="Enter quantity.." required>
+                    <input id="product-quantity" type="text" name="quantity" placeholder="Enter quantity.." 
+                    onkeyup="cal_Amount()" required>
                     </div>
             </div>
             <div class="row">
@@ -81,37 +83,25 @@
                     <label for="price">Price  <cite>  (ksh)</cite></label>
                     </div>
                     <div class="right">
-                    <input id="pprice" type="text" name="price" placeholder="Enter price.." required>
+                    <input id="product-price" type="text" name="price" required readonly>
                     </div>
             
+            </div>
+            <div class="row">
+                    <div class="left">
+                    <label for="total">Total  <cite>  (ksh)</cite></label>
+                    </div>
+                    <div class="right">
+                    <input id="sale-total" type="text" name="total" readonly>
+                    </div>
+            </div>
+            <div class="row">
+            <button class="add-btn" type="submit">Add</button>
+            <button class="cancel-btn" onclick="showContainer(event, 'view-sales')"
+             type="button">cancel</button>
             </div>            
         </form>
-        <button class="add-btn" onclick="insertFunction()">Add</button>
-        <button class="cancel-btn" onclick="showContainer(event, 'view-sales')">cancel</button>
         </div>
-
-                <!-- Product list Conatiner-->
-        <div class="product-container">
-        <h2>Cart</h2>
-        <table id="products">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Pilsner</td>
-                <td>200</td>
-                <td>20</td>
-            </tr>
-        </table><br>
-        <label for="total">Amount</label><br>
-        <input type="text" name="total" placeholder="Total Amount">
-        <button class="add-btn" onclick="showContainer(event, 'view-sales')">Checkout</button>
-        </div>
-
         </div>
 
         
@@ -127,65 +117,11 @@
 
         <div class="view-sales-container">
             <form class="search-input" >
-                <input id="dateFilter"  type="date" name="date-filter">
+                <input id="saleInput"  onkeyup="saleFilter()" type="text" name="search"
+                placeholder="Search by id..">
             </form>
-                
-            <table id="sales">   
-                <tr>
-                    <th>Sales ID</th>
-                    <th>Date Time</th>
-                    <th>Total Products</th>
-                    <th>Total Amount</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>2</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>2</td>
-                    <td>1000</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>5</td>
-                    <td>500</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>2</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>2</td>
-                    <td>1000</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>2</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>2</td>
-                    <td>1000</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>1-04-2018 15:30</td>
-                    <td>5</td>
-                    <td>500</td>
-                </tr>
-            </table>
+            <div><h4 id="no-sales"></h4></div>    
+            <table id="sales"></table>
             </div>
     </div>
 
