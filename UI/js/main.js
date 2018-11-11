@@ -1,45 +1,14 @@
-  // login backend *******************************************************************************************
-var login_form = document.getElementById('login');
-if(login_form){
-  login_form.addEventListener('submit', Login);
+   // Access token from login
+   const token = localStorage.getItem('access_token')
+   const current_user = localStorage.getItem('current_user')
+   const access_token = "Bearer " + token
+
+function setUserName(){
+
+  document.getElementById('current-user').innerHTML = current_user;
 }
+ 
 
-function Login(e){
-  e.preventDefault();
-
-  let username = document.getElementById('username').value;
-  let password = document.getElementById('password').value;
-
-  fetch('https://my-store-manager-api.herokuapp.com/api/v2/auth/login', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json, test/plain, */*',
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify({username:username, password:password})
-  })
-  .then((res) => res.json())
-  // .then((data) => console.log(data))
-  .then((data) => {
-    localStorage.setItem('access_token', data.access_token)
-    if(data.access_token){
-      redirect: window.location.replace("./admin.html")
-    } else{
-      let error_message = document.getElementById('error-message')
-      if (error_message){
-        error_message.innerHTML = data.message
-      }
-    }
-  })
-  .catch((err) => console.log(err))
-}
-
-// END login backend ************************************************************************************
-
-// Access token from login
-const token = localStorage.getItem('access_token')
-const access_token = "Bearer " + token
-  
 function showContainer(evt, sectionID) {
     // Declare all variables
     var i, dashboardcontainer, tablinks;
@@ -69,6 +38,9 @@ function showContainer(evt, sectionID) {
      // Get the element with id="default" and click on it
      document.getElementById("default").click();
     
+     //  set username
+     setUserName()
+
     //  get all users on load
      getUsers()
 
