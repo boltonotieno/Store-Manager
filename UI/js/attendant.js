@@ -41,6 +41,9 @@ function clickFunction() {
      
     //  get all products on load 
     getProducts()
+
+    //  get all categories on load 
+    getCategory()
  
 }
 // Windows on load ***************************************************************
@@ -113,4 +116,56 @@ function getProducts(){
   }
   
   // END GET Products  **********************************************************************************
+ 
   
+// GET all categories ***********************************************************************************
+
+function getCategory(){
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/category', {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Request-Method': '*',
+      "Authorization": access_token
+    }
+  })
+  .then((res) => res.json())
+//   .then((data) => console.log(data))
+  .then((data) => {
+    let no_category = document.getElementById('no-category')
+    if(data.message == 'No categories'){
+      no_category.style.display = 'block';
+      no_category.style.color = 'red';
+      no_category.innerHTML= data.message; 
+    }
+    else{
+    no_category.style.display = 'none';
+          let all_categories = `
+                      <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Action</th>
+                      </tr>
+                      `;
+    data['Categories'].forEach(function(category){
+      all_categories +=  `
+        <tr>
+            <td>${category.id}</td>
+            <td>${category.name}</td>
+            <td>
+            <div class="sales-modify-btn">
+            <button id="modify-cat-btn" onclick="modifyCategory()">edit</button>
+            <button id="delete-cat-btn" onclick="deleteCategory()">delete</button>
+            </div>
+            </td>
+        </td>
+        </tr>
+      `;
+    });
+    document.getElementById('category').innerHTML = all_categories;
+    }
+  })
+  .catch((err) => console.log(err))
+}
+
+// END GET all categories *******************************************************************************
