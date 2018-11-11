@@ -57,6 +57,9 @@ function showContainer(evt, sectionID) {
 
     //  get all products on load 
     getProducts()
+
+    //  get all sales on load 
+    getSales()
  }
 // Windows on load ***************************************************************
 
@@ -103,25 +106,6 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
-
-// filter sales by search input
-function inputFilter() {
-    var input, filter, table, tr, td, i;
-    input = document.getElementById("searchInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("sales");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName("td")[1];
-      if (td) {
-        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
-      }       
-    }
-  }
 
 function insertFunction() {
     var table = document.getElementById("products");
@@ -1030,6 +1014,73 @@ function logoutAdmin(){
 // End LOGOUT attendant ******************************************
 
 
-// run showContainer function
-showContainer()
+// filter sales by attenand input
+function saleFilter() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("saleInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("view-sales");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+// GET all sales ***************************************************************************************
+function getSales(){
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/sales', {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Request-Method': '*',
+      "Authorization": access_token
+    }
+  })
+  .then((res) => res.json())
+  // .then((data) => console.log(data))
+  .then((data) => {
+    let no_sales = document.getElementById('no-sales')
+    if(data.message == 'No sales'){
+      no_sales.style.display = 'block';
+      no_sales.innerHTML= data.message; 
+    }
+    else{
+    no_sales.style.display = 'none';
+          let all_sales = `
+                      <tr>
+                      <th>Sale ID</th>
+                      <th>Creator</th>
+                      <th>Product</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                      <th>Total</th>
+                      </tr>
+                      `;
+    data['Sales'].forEach(function(sale){
+      all_sales +=  `
+        <tr>
+            <td>${sale.id}</td>
+            <td>${sale.attendant}</td>
+            <td>${sale.name}</td>
+            <td>${sale.price}</td>
+            <td>${sale.quantity}</td>
+            <td>${sale.total_price}</td>
+        </td>
+        </tr>
+      `;
+    });
+    document.getElementById('view-sales').innerHTML = all_sales;
+    }
+  })
+  .catch((err) => console.log(err))
+}
+
+// END GET all attendant sales *************************************************************************
 

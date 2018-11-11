@@ -231,58 +231,11 @@
 
         <div class="sales-container">
             <form class="search-input" >
-                <input id="searchInput"  onkeyup="inputFilter()" type="text" name="search" placeholder="Search attendant..">
-                <input id="dateFilter"  type="date" name="date-filter">
+                <input id="saleInput"  onkeyup="saleFilter()" type="text" name="search" 
+                placeholder="Search attendant..">
             </form>
-                <table id="sales">
-                    <tr>
-                        <th>Sales ID</th>
-                        <th>Attendant</th>
-                        <th>Date Time</th>
-                        <th>Total Products</th>
-                        <th>Total Amount</th>
-                        <th>Action</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>1-04-2018 15:30</td>
-                        <td>2</td>
-                        <td>100</td>
-                        <td>
-                            <div class="sales-modify-btn">
-                            <a onclick="showContainer(event, 'edit-sales')" ><button>view</button></a>
-                            <button class="sales-delete">delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jane Doe</td>
-                        <td>1-04-2018 15:30</td>
-                        <td>2</td>
-                        <td>1000</td>
-                        <td>
-                            <div class="-sales-modify-btn">
-                                <a onclick="showContainer(event, 'edit-sales')" ><button>view</button></a>
-                                <button class="sales-delete">delete</button>
-                                </div>
-                            </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>John Doe</td>
-                        <td>1-04-2018 15:30</td>
-                        <td>5</td>
-                        <td>500</td>
-                        <td>
-                            <div class="sales-modify-btn">
-                            <a onclick="showContainer(event, 'edit-sales')" ><button>view</button></a>
-                            <button class="-sales-delete">delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                <div><h4 id="no-sales"></h4></div>
+                <table id="view-sales"></table>
                 </div>
 
     </div>
