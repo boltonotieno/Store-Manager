@@ -38,6 +38,147 @@ function clickFunction() {
 
     //  set username
      setUserName()
+     
+    //  get all products on load 
+    getProducts()
+
+    //  get all categories on load 
+    getCategory()
  
 }
 // Windows on load ***************************************************************
+
+// filter product by name
+function productFilter() {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("productInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("view-products");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+
+
+// GET Products  **********************************************************************************
+
+function getProducts(){
+    fetch('https://my-store-manager-api.herokuapp.com/api/v2/products', {
+      method: 'GET',
+      headers: {
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Request-Method': '*',
+        "Authorization": access_token
+      }
+    })
+    .then((res) => res.json())
+    // .then((data) => console.log(data))
+    .then((data) => {
+      let no_products = document.getElementById('no-products')
+      if(data.message == 'No products'){
+        no_products.style.display = 'block';
+        no_products.innerHTML= data.message; 
+      }
+      else{
+      no_products.style.display = 'none';
+      let all_products = `
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Category ID</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Min quantity</th>
+                        `;
+      data['Products'].forEach(function(product){
+        all_products +=  `
+          <tr>
+              <td>${product.id}</td>
+              <td>${product.name}</td>
+              <td>${product.category_id}</td>
+              <td>${product.price}</td>
+              <td>${product.quantity}</td>
+              <td>${product.min_quantity}</td>
+          </tr>
+        `;
+      });
+      document.getElementById('view-products').innerHTML = all_products;
+      }
+    })
+    .catch((err) => console.log(err))
+  }
+  
+  // END GET Products  **********************************************************************************
+ 
+
+  // filter category by name
+function categoryFilter() {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("categoryInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("category");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+
+  
+// GET all categories ***********************************************************************************
+
+function getCategory(){
+  fetch('https://my-store-manager-api.herokuapp.com/api/v2/category', {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Request-Method': '*',
+      "Authorization": access_token
+    }
+  })
+  .then((res) => res.json())
+//   .then((data) => console.log(data))
+  .then((data) => {
+    let no_category = document.getElementById('no-category')
+    if(data.message == 'No categories'){
+      no_category.style.display = 'block';
+      no_category.style.color = 'red';
+      no_category.innerHTML= data.message; 
+    }
+    else{
+    no_category.style.display = 'none';
+          let all_categories = `
+                      <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      </tr>
+                      `;
+    data['Categories'].forEach(function(category){
+      all_categories +=  `
+        <tr>
+            <td>${category.id}</td>
+            <td>${category.name}</td>
+        </td>
+        </tr>
+      `;
+    });
+    document.getElementById('category').innerHTML = all_categories;
+    }
+  })
+  .catch((err) => console.log(err))
+}
+
+// END GET all categories *******************************************************************************

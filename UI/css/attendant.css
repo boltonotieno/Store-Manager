@@ -234,33 +234,6 @@ i{
     opacity: 1;
 }
 
-
-/*product table list css */
-
-#products{
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#products td, #products th {
-    border: 1px solid #ddd;
-    padding: 8px;
-    font-size: 14px;
-}
-
-#products tr:nth-child(even){background-color: #f2f2f2;}
-
-#products tr:hover {background-color: #ddd;}
-
-#products th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #4471B7;
-    color: white;
-}
-
 /* search input fieldset css */
 .search-input input[type=text] {
     width: 130px;
@@ -278,6 +251,10 @@ i{
     width: 50%;
 }
 
+.view-category-container .search-input input[type=text]{
+    height: 10px;
+}
+
 
 /*view product table list css */
 
@@ -287,7 +264,7 @@ i{
     width: 100%;
 }
 
-#view-products td, #products th {
+#view-products td, #view-products th {
     border: 1px solid #ddd;
     padding: 8px;
     font-size: 14px;
@@ -303,4 +280,61 @@ i{
     text-align: left;
     background-color: #4471B7;
     color: white;
+}
+
+
+/* view category css */
+.view-category-container{
+    background-color: #FFFFFF;
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 32px;
+}
+
+
+.view-category-container .add-btn{
+    border-radius: 5px;
+    width: 100px;
+    padding: 5px;
+    opacity: 0.7;
+    background-color: #4471B7;
+    margin-bottom: 10px;
+}
+
+.view-category-container .add-btn:hover{
+    opacity: 0.9;
+}
+
+#category{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#category td, #category th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-size: 14px;
+}
+
+#category tr:nth-child(even){background-color: #f2f2f2;}
+
+#category tr:hover {background-color: #ddd;}
+
+#category th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4471B7;
+    color: white;
+}
+
+/* Error messages */
+#no-category, #no-products{
+    text-align: center;
+    font-family:  "Lucida Console", Monaco, monospace;
+    font-size: 15px;
+    color: red
 }
