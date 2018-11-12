@@ -97,7 +97,7 @@ function getProducts(){
         no_products.innerHTML= data.message; 
       }
       if(data.msg == "Token has expired"){
-        alert('Session has expired kindly login again')
+        no_products.innerHTML = 'Session has expired kindly login again';
       }
       else{
       no_products.style.display = 'none';
@@ -220,7 +220,6 @@ function logoutAttendant(){
         if(data.message == 'Logged out succesful'){
             redirect: window.location.replace("./index.html")
         }
-        alert("Logout Successful");
       })
       .catch((err) => console.log(err))
 }
@@ -264,7 +263,7 @@ function setProduct(){
         cal_Amount()
       }
       if(data.msg == "Token has expired"){
-        alert('Session has expired kindly login again')
+        product_msg.innerHTML = 'Session has expired kindly login again';
       }
     })
     .catch((err) => console.log(err))
@@ -346,7 +345,7 @@ function postSale(e){
         clear_saleForm()
     }
     if(data.msg == "Token has expired"){
-        alert('Session has expired kindly login again')
+      product_msg.innerHTML = 'Session has expired kindly login again';
     }
   })
   .catch((err) => console.log(err))

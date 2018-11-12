@@ -1022,7 +1022,6 @@ function logoutAdmin(){
         if(data.message == 'Logged out succesful'){
             redirect: window.location.replace("./index.html")
         }
-        alert("Logout Successful");
       })
       .catch((err) => console.log(err))
 }
