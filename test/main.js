@@ -3,8 +3,8 @@ var storage = require('mock-local-storage')
 var request = require('request');
 var should = require('should');
 var chai = require('chai');
-// var baseURL = "https://my-store-manager-api.herokuapp.com/api/v2"
-var baseURL = "http://localhost:5000/api/v2"
+var baseURL = "https://my-store-manager-api.herokuapp.com/api/v2"
+// var baseURL = "http://localhost:5000/api/v2"
 var assert = chai.assert;
 
 // Test Function
@@ -161,7 +161,7 @@ describe('Attendant Tests', function() {
       it('should login a user', function(done) {
           let data = {
           username: 'jdoe',
-          password: 'jdoepass'
+          password: 'Password12!'
         }
         request.post({
           url: baseURL + '/auth/login',
@@ -260,27 +260,6 @@ describe('Attendant Tests', function() {
             var bodyObj = JSON.parse(body)
             assert.equal(statusCode, 200);
             assert.equal(bodyObj.message, "Products successfully retrieved")
-            done();
-          }
-        );
-      });
-    });
-
-    // Test GET all Sales
-    describe('Get Sales', function() {
-      it('should get own sales', function(done) {
-        const token = localStorage.getItem('attendant_token')
-        request.get({
-          url:baseURL + '/sales',
-          headers: {
-            "Authorization": "Bearer " + token
-          }
-        }, 
-          function(error, response, body){
-            var statusCode = response.statusCode;
-            var bodyObj = JSON.parse(body)
-            assert.equal(statusCode, 200);
-            assert.equal(bodyObj.message, "Sales successfully retrieved")
             done();
           }
         );
