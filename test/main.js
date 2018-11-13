@@ -181,5 +181,110 @@ describe('Attendant Tests', function() {
         );
       });
     });
+
+    // Test GET all Users
+    describe('Get all Users', function() {
+      it('should not get all users', function(done) {
+        const token = localStorage.getItem('attendant_token')
+        request.get({
+          url:baseURL + '/users',
+          headers: {
+            "Authorization": "Bearer " + token
+          }
+        }, 
+          function(error, response, body){
+            var statusCode = response.statusCode;
+            var bodyObj = JSON.parse(body)
+            assert.equal(statusCode, 403);
+            assert.equal(bodyObj.message, "Access allowed only to admin")
+            done();
+          }
+        );
+      });
+    });
+
+    // Test GET one user by id
+    describe('Get one User', function() {
+      it('should not get one user', function(done) {
+        const token = localStorage.getItem('attendant_token')
+        request.get({
+          url:baseURL + '/users/1',
+          headers: {
+            "Authorization": "Bearer " + token
+          }
+        }, 
+          function(error, response, body){
+            var statusCode = response.statusCode;
+            var bodyObj = JSON.parse(body)
+            assert.equal(statusCode, 403);
+            assert.equal(bodyObj.message, "Access allowed only to admin")
+            done();
+          }
+        );
+      });
+    });
+
+    // Test GET all Categories
+    describe('Get Categories', function() {
+      it('should get all cetegories', function(done) {
+        const token = localStorage.getItem('attendant_token')
+        request.get({
+          url:baseURL + '/category',
+          headers: {
+            "Authorization": "Bearer " + token
+          }
+        }, 
+          function(error, response, body){
+            var statusCode = response.statusCode;
+            var bodyObj = JSON.parse(body)
+            assert.equal(statusCode, 200);
+            assert.equal(bodyObj.message, "Categories successfully retrieved")
+            done();
+          }
+        );
+      });
+    });
+
+    // Test GET all Products
+    describe('Get Products', function() {
+      it('should get all products', function(done) {
+        const token = localStorage.getItem('attendant_token')
+        request.get({
+          url:baseURL + '/products',
+          headers: {
+            "Authorization": "Bearer " + token
+          }
+        }, 
+          function(error, response, body){
+            var statusCode = response.statusCode;
+            var bodyObj = JSON.parse(body)
+            assert.equal(statusCode, 200);
+            assert.equal(bodyObj.message, "Products successfully retrieved")
+            done();
+          }
+        );
+      });
+    });
+
+    // Test GET all Sales
+    describe('Get Sales', function() {
+      it('should get own sales', function(done) {
+        const token = localStorage.getItem('attendant_token')
+        request.get({
+          url:baseURL + '/sales',
+          headers: {
+            "Authorization": "Bearer " + token
+          }
+        }, 
+          function(error, response, body){
+            var statusCode = response.statusCode;
+            var bodyObj = JSON.parse(body)
+            assert.equal(statusCode, 200);
+            assert.equal(bodyObj.message, "Sales successfully retrieved")
+            done();
+          }
+        );
+      });
+    });
 });
 //  END Attendant TestCases *********************************************************************************
