@@ -79,3 +79,23 @@ describe('Get Categories', function() {
   });
 });
 
+describe('Get Products', function() {
+  it('should get all products', function(done) {
+    const token = localStorage.getItem('access_token')
+    request.get({
+      url:baseURL + '/products',
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    }, 
+      function(error, response, body){
+        var statusCode = response.statusCode;
+        var bodyObj = JSON.parse(body)
+        assert.equal(statusCode, 200);
+        assert.equal(bodyObj.message, "Products successfully retrieved")
+        done();
+      }
+    );
+  });
+});
+
