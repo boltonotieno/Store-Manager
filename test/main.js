@@ -6,6 +6,7 @@ var chai = require('chai');
 var baseURL = "https://my-store-manager-api.herokuapp.com/api/v2"
 var assert = chai.assert;
 
+// Test Function
 describe('Array', function() {
   it('should start empty', function() {
     var arr = [];
@@ -14,6 +15,7 @@ describe('Array', function() {
   });
 });
 
+// Test User Login
 describe('User Login', function() {
   it('should login a user', function(done) {
       let data = {
@@ -39,6 +41,7 @@ describe('User Login', function() {
   });
 });
 
+// Test GET all Users
 describe('Get Users', function() {
   it('should get all users', function(done) {
     const token = localStorage.getItem('access_token')
@@ -59,6 +62,7 @@ describe('Get Users', function() {
   });
 });
 
+// Test GET all Categories
 describe('Get Categories', function() {
   it('should get all cetegories', function(done) {
     const token = localStorage.getItem('access_token')
@@ -79,6 +83,7 @@ describe('Get Categories', function() {
   });
 });
 
+// Test GET all Products
 describe('Get Products', function() {
   it('should get all products', function(done) {
     const token = localStorage.getItem('access_token')
@@ -99,6 +104,7 @@ describe('Get Products', function() {
   });
 });
 
+// Test GET all Sales
 describe('Get Sales', function() {
   it('should get all sales', function(done) {
     const token = localStorage.getItem('access_token')
