@@ -99,3 +99,22 @@ describe('Get Products', function() {
   });
 });
 
+describe('Get Sales', function() {
+  it('should get all sales', function(done) {
+    const token = localStorage.getItem('access_token')
+    request.get({
+      url:baseURL + '/sales',
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    }, 
+      function(error, response, body){
+        var statusCode = response.statusCode;
+        var bodyObj = JSON.parse(body)
+        assert.equal(statusCode, 200);
+        assert.equal(bodyObj.message, "Sales successfully retrieved")
+        done();
+      }
+    );
+  });
+});
