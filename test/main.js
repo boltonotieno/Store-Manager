@@ -42,7 +42,7 @@ describe('User Login', function() {
 });
 
 // Test GET all Users
-describe('Get Users', function() {
+describe('Get all Users', function() {
   it('should get all users', function(done) {
     const token = localStorage.getItem('access_token')
     request.get({
@@ -56,6 +56,27 @@ describe('Get Users', function() {
         var bodyObj = JSON.parse(body)
         assert.equal(statusCode, 200);
         assert.equal(bodyObj.message, "Users successfully retrieved")
+        done();
+      }
+    );
+  });
+});
+
+// Test GET one user by id
+describe('Get one User', function() {
+  it('should get one user', function(done) {
+    const token = localStorage.getItem('access_token')
+    request.get({
+      url:baseURL + '/users/1',
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    }, 
+      function(error, response, body){
+        var statusCode = response.statusCode;
+        var bodyObj = JSON.parse(body)
+        assert.equal(statusCode, 200);
+        assert.equal(bodyObj.message, "User successfully retrieved")
         done();
       }
     );
