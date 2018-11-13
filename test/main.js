@@ -59,3 +59,23 @@ describe('Get Users', function() {
   });
 });
 
+describe('Get Categories', function() {
+  it('should get all cetegories', function(done) {
+    const token = localStorage.getItem('access_token')
+    request.get({
+      url:baseURL + '/category',
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    }, 
+      function(error, response, body){
+        var statusCode = response.statusCode;
+        var bodyObj = JSON.parse(body)
+        assert.equal(statusCode, 200);
+        assert.equal(bodyObj.message, "Categories successfully retrieved")
+        done();
+      }
+    );
+  });
+});
+
