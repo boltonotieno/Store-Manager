@@ -39,4 +39,23 @@ describe('User Login', function() {
   });
 });
 
+describe('Get Users', function() {
+  it('should get all users', function(done) {
+    const token = localStorage.getItem('access_token')
+    request.get({
+      url:baseURL + '/users',
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    }, 
+      function(error, response, body){
+        var statusCode = response.statusCode;
+        var bodyObj = JSON.parse(body)
+        assert.equal(statusCode, 200);
+        assert.equal(bodyObj.message, "Users successfully retrieved")
+        done();
+      }
+    );
+  });
+});
 
