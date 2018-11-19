@@ -2,6 +2,7 @@
    const token = localStorage.getItem('access_token')
    const current_user = localStorage.getItem('current_user')
    const access_token = "Bearer " + token
+   const base_URL = 'https://my-store-manager-api.herokuapp.com/api/v2/'
 
   // check if token exist during load
   if (token === null){
@@ -80,7 +81,7 @@ function productFilter() {
 // GET Products  **********************************************************************************
 
 function getProducts(){
-    fetch('https://my-store-manager-api.herokuapp.com/api/v2/products', {
+    fetch(`${base_URL}products`, {
       method: 'GET',
       headers: {
         'Access-Control-Allow-Origin':'*',
@@ -108,6 +109,7 @@ function getProducts(){
                   <th>Price</th>
                   <th>Quantity</th>
                   <th>Min quantity</th>
+                  <th>Action</th>
                         `;
       data['Products'].forEach(function(product){
         all_products +=  `
@@ -118,6 +120,11 @@ function getProducts(){
               <td>${product.price}</td>
               <td>${product.quantity}</td>
               <td>${product.min_quantity}</td>
+              <td>
+              <div class="sell-btn">
+              <button id="sell-btn" onclick="placeProduct()">sell</button>
+              </div>
+              </td>
           </tr>
         `;
       });
@@ -153,7 +160,7 @@ function categoryFilter() {
 // GET all categories ***********************************************************************************
 
 function getCategory(){
-  fetch('https://my-store-manager-api.herokuapp.com/api/v2/category', {
+  fetch(`${base_URL}category`, {
     method: 'GET',
     headers: {
       'Access-Control-Allow-Origin':'*',
@@ -202,7 +209,7 @@ if(logout_attendant){
 }
 
 function logoutAttendant(){
-    fetch('https://my-store-manager-api.herokuapp.com/api/v2/auth/logout', {
+    fetch(`${base_URL}auth/logout`, {
         method: 'DELETE',
         headers: {
           'Access-Control-Allow-Origin':'*',
@@ -236,7 +243,7 @@ function setProduct(){
 
     let product_id = document.getElementById('product-id').value;
 
-    fetch(`https://my-store-manager-api.herokuapp.com/api/v2/products/${product_id}`, {
+    fetch(`${base_URL}products/${product_id}`, {
       method: 'GET',
       headers: {
         'Access-Control-Allow-Origin':'*',
@@ -271,8 +278,28 @@ function setProduct(){
   
   
   // END Set product details in sales form *****************************************************************
-  
 
+  // Place product details from product table ********************************************************************
+function placeProduct(){
+
+  var table = document.getElementById("view-products");
+  for ( var i = 0; i < table.rows.length; i++){
+    table.rows[i].onclick = function(){
+      product_id = this.cells[0].innerHTML;
+
+      if(product_id){
+        // Set the product details
+        showContainer(event, 'add-sales')
+        document.getElementById('product-id').value = product_id;
+        document.getElementById('product-name').value = this.cells[1].innerHTML;
+        document.getElementById('product-price').value = this.cells[3].innerHTML;
+        }
+      }
+    }
+  }
+  // END Place product details from product table **************************************************************
+
+  
 // POST Sales **********************************************************************************************
 var sale_form = document.getElementById('sale-form');
 if(sale_form){
@@ -306,7 +333,7 @@ function postSale(e){
     "attendant": attendant
   }
 
-  fetch('https://my-store-manager-api.herokuapp.com/api/v2/sales', {
+  fetch(`${base_URL}sales`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, test/plain, */*',
@@ -376,7 +403,7 @@ function postSale(e){
 // GET all attendant sales ***********************************************************************************
 
 function getSales(){
-    fetch('https://my-store-manager-api.herokuapp.com/api/v2/sales', {
+    fetch(`${base_URL}sales`, {
       method: 'GET',
       headers: {
         'Access-Control-Allow-Origin':'*',

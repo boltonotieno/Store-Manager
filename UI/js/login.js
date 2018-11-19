@@ -1,3 +1,5 @@
+const base_URL = 'https://my-store-manager-api.herokuapp.com/api/v2/'
+  
   // login backend *******************************************************************************************
   var login_form = document.getElementById('login');
   if(login_form){
@@ -10,7 +12,7 @@
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
   
-    fetch('https://my-store-manager-api.herokuapp.com/api/v2/auth/login', {
+    fetch(`${base_URL}auth/login`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json, test/plain, */*',
