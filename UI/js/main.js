@@ -2,6 +2,7 @@
    const token = localStorage.getItem('access_token')
    const current_user = localStorage.getItem('current_user')
    const access_token = "Bearer " + token
+   const base_URL = 'https://my-store-manager-api.herokuapp.com/api/v2/'
 
   // check if token exist during load
   if (token === null){
@@ -186,7 +187,7 @@ function Registration(e){
     "role": role_reg
   }
 
-  fetch('https://my-store-manager-api.herokuapp.com/api/v2/auth/signup', {
+  fetch(`${base_URL}auth/signup`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, test/plain, */*',
@@ -244,7 +245,7 @@ if(view_users){
 
 
 function getUsers(){
-  fetch('https://my-store-manager-api.herokuapp.com/api/v2/users', {
+  fetch(`${base_URL}users`, {
     method: 'GET',
     headers: {
       'Access-Control-Allow-Origin':'*',
@@ -356,7 +357,7 @@ function modifyRole(){
       "role": role_edit
     }
 
-    fetch(`https://my-store-manager-api.herokuapp.com/api/v2/users/${user_id}`, {
+    fetch(`${base_URL}users/${user_id}`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json, test/plain, */*',
@@ -415,7 +416,7 @@ function postCategory(e){
 
   let cat_name = document.getElementById('category-name').value
 
-  fetch(`https://my-store-manager-api.herokuapp.com/api/v2/category`, {
+  fetch(`${base_URL}category`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, test/plain, */*',
@@ -460,7 +461,7 @@ if(view_category){
 }
 
 function getCategory(){
-  fetch('https://my-store-manager-api.herokuapp.com/api/v2/category', {
+  fetch(`${base_URL}category`, {
     method: 'GET',
     headers: {
       'Access-Control-Allow-Origin':'*',
@@ -519,7 +520,7 @@ function deleteCategory(){
       index = this.rowIndex;
       cat_id = this.cells[0].innerHTML;
 
-      fetch(`https://my-store-manager-api.herokuapp.com/api/v2/category/${cat_id}`, {
+      fetch(`${base_URL}category/${cat_id}`, {
         method: 'DELETE',
         headers: {
           'Access-Control-Allow-Origin':'*',
@@ -613,7 +614,7 @@ var cat_form = document.getElementById('cat-form');
     let cat_name = document.getElementById('edit-catName').value;
     let cat_id = document.getElementById('edit-catID').value;
 
-    fetch(`https://my-store-manager-api.herokuapp.com/api/v2/category/${cat_id}`, {
+    fetch(`${base_URL}category/${cat_id}`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json, test/plain, */*',
@@ -660,7 +661,7 @@ if(view_cat){
 // GET all categories into POST product form ************************************************************
 
 function setCategory(){
-  fetch('https://my-store-manager-api.herokuapp.com/api/v2/category', {
+  fetch(`${base_URL}category`, {
     method: 'GET',
     headers: {
       'Access-Control-Allow-Origin':'*',
@@ -721,7 +722,7 @@ function postProduct(e){
     "category_id": product_cat
   }
 
-  fetch('https://my-store-manager-api.herokuapp.com/api/v2/products', {
+  fetch(`${base_URL}products`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, test/plain, */*',
@@ -780,7 +781,7 @@ if(view_users){
 
 
 function getProducts(){
-  fetch('https://my-store-manager-api.herokuapp.com/api/v2/products', {
+  fetch(`${base_URL}products`, {
     method: 'GET',
     headers: {
       'Access-Control-Allow-Origin':'*',
@@ -843,7 +844,7 @@ function deleteProduct(){
 
       product_id = this.cells[0].innerHTML;
 
-      fetch(`https://my-store-manager-api.herokuapp.com/api/v2/products/${product_id}`, {
+      fetch(`${base_URL}products/${product_id}`, {
         method: 'DELETE',
         headers: {
           'Access-Control-Allow-Origin':'*',
@@ -949,7 +950,7 @@ var prod_form = document.getElementById('product-form');
       "category_id": prod_cat
     }
 
-    fetch(`https://my-store-manager-api.herokuapp.com/api/v2/products/${prod_id}`, {
+    fetch(`${base_URL}products/${prod_id}`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json, test/plain, */*',
@@ -1004,7 +1005,7 @@ if(logout_admin){
 }
 
 function logoutAdmin(){
-    fetch('https://my-store-manager-api.herokuapp.com/api/v2/auth/logout', {
+    fetch(`${base_URL}auth/logout`, {
         method: 'DELETE',
         headers: {
           'Access-Control-Allow-Origin':'*',
@@ -1050,7 +1051,7 @@ function saleFilter() {
 
 // GET all sales ***************************************************************************************
 function getSales(){
-  fetch('https://my-store-manager-api.herokuapp.com/api/v2/sales', {
+  fetch(`${base_URL}sales`, {
     method: 'GET',
     headers: {
       'Access-Control-Allow-Origin':'*',
