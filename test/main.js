@@ -4,6 +4,7 @@ var request = require('request');
 var should = require('should');
 var chai = require('chai');
 var baseURL = "https://my-store-manager-api.herokuapp.com/api/v2"
+var loginController =  require('../UI/js/login.js');
 // var baseURL = "http://localhost:5000/api/v2"
 var assert = chai.assert;
 
