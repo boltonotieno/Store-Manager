@@ -1,3 +1,4 @@
 test/node_modules/
 test/package-lock.json
 test/testrunner.html
+.nyc_output

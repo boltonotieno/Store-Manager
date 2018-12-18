@@ -1,6 +1,7 @@
   // login backend *******************************************************************************************
-  var login_form = document.getElementById('login');
+  let login_form
   if(login_form){
+    login_form = document.getElementById('login');
     login_form.addEventListener('submit', Login);
   }
   
